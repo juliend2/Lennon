@@ -11,6 +11,7 @@
       <a href="/admin/posts/<%= post[:_id] %>"><%= post[:title] %></a><br/>
     </td>
     <td>
+      <%= link_to 'Edit', "/admin/posts/#{post[:_id]}/edit"%>
       <%= delete_btn('Delete', "/admin/posts/#{post[:_id]}") %>
     </td>
   </tr>

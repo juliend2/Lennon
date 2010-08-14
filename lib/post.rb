@@ -5,4 +5,8 @@ class Post
   key :content, String
   key :published_at, Time
   timestamps!
+  
+  # def set_permalink
+  #   self.slug = title.gsub(/\s+/, "-")
+  # end
 end

@@ -89,6 +89,19 @@ module Sinatra
         redirect '/'
       end
       
+      # CRUD
+      # 
+      app.get '/admin/posts/add/?' do
+        authorize!
+        erb :"admin/admin_posts_add", :layout=>:"admin/layout_admin"
+      end
+      
+      app.post '/admin/posts/add' do
+        authorize!
+        Post.create( :title => params[:title], :slug => params[:slug], :content=>params[:content], :published_at=>Time.now ).save
+        redirect '/admin/posts'
+      end
+      
       app.get '/admin/posts/?' do
         authorize!
         @posts = Post.all.reverse
@@ -101,21 +114,27 @@ module Sinatra
         erb :"admin/admin_post", :layout=>:"admin/layout_admin"
       end
       
+      app.get '/admin/posts/:id/edit' do 
+        authorize!
+        @post = Post.find(params[:id])
+        erb :"admin/admin_posts_edit", :layout=>:"admin/layout_admin"
+      end
+      
+      app.put '/admin/posts/:id' do
+        authorize!
+        Post.update( params[:id] , {
+          :title=>params[:title],
+          :slug=>params[:slug],
+          :content=>params[:content],
+          :published_at=>params[:published_at]
+        })
+        redirect '/admin/posts'
+      end
+      
       app.delete '/admin/posts/:id' do
         authorize!
         @post = Post.find(params[:id])
         @post.destroy
-        redirect '/admin/posts'
-      end
-      
-      app.get '/admin/posts/add/?' do
-        authorize!
-        erb :"admin/admin_posts_add", :layout=>:"admin/layout_admin"
-      end
-      
-      app.post '/admin/posts/add' do
-        authorize!
-        Post.create( :title => params[:title], :slug => params[:slug], :content=>params[:content], :published_at=>Time.now ).save
         redirect '/admin/posts'
       end
       
