@@ -24,7 +24,3 @@ end
     erb :posts
   end
 end
-
-get '/test' do
-  options.conf['blog_title']
-end

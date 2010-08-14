@@ -51,13 +51,9 @@ module Sinatra
       MongoMapper.database = app.conf['mongo_db']
       MongoMapper.database.authenticate(app.conf['mongo_user'], app.conf['mongo_pass'])
       
-      layout do
-        File.read(File.expand_path(File.join(LENNON_ROOT, 'views/layout.erb')))
-      end
-      
       # Admin
       # 
-      app.get '/admin' do
+      app.get '/admin/?' do
         if authorized?
           "<a href='/admin/posts'>Manage Posts</a>"
         else
@@ -65,8 +61,8 @@ module Sinatra
         end
       end
       
-      app.get '/admin/login' do
-        erb :admin_login
+      app.get '/admin/login/?' do
+        erb :admin_login, :layout=>:layout_admin
       end
       
       app.post '/admin/login' do
@@ -79,15 +75,15 @@ module Sinatra
         end
       end
       
-      app.get '/admin/posts' do
+      app.get '/admin/posts/?' do
         authorize!
         @posts = Post.all.reverse
-        erb :admin_posts
+        erb :admin_posts, :layout=>:layout_admin
       end
       
-      app.get '/admin/posts/add' do
+      app.get '/admin/posts/add/?' do
         authorize!
-        erb :admin_posts_add
+        erb :admin_posts_add, :layout=>:layout_admin
       end
 
       app.post '/admin/posts/add' do
