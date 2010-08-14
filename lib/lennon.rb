@@ -95,7 +95,14 @@ module Sinatra
         erb :"admin/admin_posts", :layout=>:"admin/layout_admin"
       end
       
+      app.get '/admin/posts/:id' do
+        authorize!
+        @post = Post.find(params[:id])
+        erb :"admin/admin_post", :layout=>:"admin/layout_admin"
+      end
+      
       app.delete '/admin/posts/:id' do
+        authorize!
         @post = Post.find(params[:id])
         @post.destroy
         redirect '/admin/posts'
