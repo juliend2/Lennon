@@ -43,8 +43,8 @@ module Sinatra
     
     def self.registered(app)
       app.helpers Lennon::Helpers
-      
       app.set :per_page, 4
+      app.set :sessions, true
       app.set :conf, YAML.load_file("#{app.root('.')}/config.yml")[app.environment.to_s]
       
       MongoMapper.connection = Mongo::Connection.new(app.conf['mongo_host'], app.conf['mongo_port'], :auto_reconnect => true)
@@ -57,7 +57,7 @@ module Sinatra
         if authorized?
           "<a href='/admin/posts'>Manage Posts</a>"
         else
-          "Hi. We haven't met. <a href='/admin/login'>Login, please.</a>"
+          redirect '/admin/login'
         end
       end
       
@@ -66,13 +66,18 @@ module Sinatra
       end
       
       app.post '/admin/login' do
-        if params[:user] == options.username && params[:pass] == options.password
+        if params[:username] == app.conf['admin_user'] && params[:password] == app.conf['admin_pass']
           session[:authorized] = true
           redirect '/'
         else
           session[:authorized] = false
           redirect '/admin/login'
         end
+      end
+      
+      app.get '/admin/logout/?' do
+        logout!
+        redirect '/'
       end
       
       app.get '/admin/posts/?' do

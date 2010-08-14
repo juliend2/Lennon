@@ -3,18 +3,8 @@
   sinatra
   mongo_mapper
   lib/lennon
+  lib/post
 }.each { |r| require r }
-
-set :sessions, true
-
-class Post
-  include MongoMapper::Document  
-  key :title, String
-  key :content, String
-  key :published_at, Time
-  timestamps!
-end
-
 
 ['/', '/page/:page'].each do |path|
   get path do 
