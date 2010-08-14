@@ -8,7 +8,7 @@ module Sinatra
       
       ##
       # Helper method for file references.
-      # (Stole from Padrino-framework)
+      # (Stolen from Padrino-framework)
       #
       # ==== Examples
       #

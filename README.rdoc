@@ -1,0 +1,22 @@
+= Lennon
+
+Lennon is a very simple blog engine built with Sinatra. Currently it's storing
+the posts in MongoDB, with MongoMapper.
+
+== Installation
+
+You'll need to copy config.yml.tpl to config.yml and modify the configurations.
+The deployment process is the same as any other Sinatra-based app. See :
+http://sinatra-book.gittr.com/#deployment
+
+== Dependencies
+
+You'll need to install these gems :
+
+  sudo gem install sinatra
+  sudo gem install mongo_mapper
+
+== Author
+
+Julien Desrosiers.
+http://juliendesrosiers.com
