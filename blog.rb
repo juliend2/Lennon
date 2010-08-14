@@ -14,3 +14,18 @@
     erb :posts
   end
 end
+
+get '/:year/:month/:day/:slug' do
+  time = Time.local(params[:year],params[:month],params[:day]).midnight
+  @post = Post.all(:created_at=>{
+    '$gt' => time.to_time,
+    '$lt' => (time + 1.day).to_time
+  }, :slug=>params[:slug])
+  if @post.length > 0
+    @post = @post[0]
+    erb :post
+  else
+    status 404
+    "Not found"
+  end
+end

@@ -1,6 +1,6 @@
 <% if @posts %>
   <% @posts.each do |post| %>
-    <h2><a href="/post/<%= post[:_id] %>"><%= post[:title] %></a></h2>
+    <h2><a href="/<%= post[:published_at].year %>/<%= post[:published_at].month %>/<%= post[:published_at].day %>/<%= post[:slug] %>"><%= post[:title] %></a></h2>
     <p><%= post[:content] %></p>
   <% end %>
 <% end %>

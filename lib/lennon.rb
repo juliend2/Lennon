@@ -62,7 +62,7 @@ module Sinatra
       end
       
       app.get '/admin/login/?' do
-        erb :admin_login, :layout=>:layout_admin
+        erb :"admin/admin_login", :layout=>:"admin/layout_admin"
       end
       
       app.post '/admin/login' do
@@ -83,17 +83,17 @@ module Sinatra
       app.get '/admin/posts/?' do
         authorize!
         @posts = Post.all.reverse
-        erb :admin_posts, :layout=>:layout_admin
+        erb :"admin/admin_posts", :layout=>:"admin/layout_admin"
       end
       
       app.get '/admin/posts/add/?' do
         authorize!
-        erb :admin_posts_add, :layout=>:layout_admin
+        erb :"admin/admin_posts_add", :layout=>:"admin/layout_admin"
       end
-
+      
       app.post '/admin/posts/add' do
         authorize!
-        Post.create( :title => params[:title], :content=>params[:content], :published_at=>Time.now ).save
+        Post.create( :title => params[:title], :slug => params[:slug], :content=>params[:content], :published_at=>Time.now ).save
         redirect '/admin/posts'
       end
       
