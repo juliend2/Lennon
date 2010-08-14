@@ -69,7 +69,7 @@ module Sinatra
       # 
       app.get '/admin' do
         if authorized?
-          "Hi. I know you."
+          "<a href='/admin/posts'>Manage Posts</a>"
         else
           "Hi. We haven't met. <a href='/admin/login'>Login, please.</a>"
         end
@@ -89,10 +89,24 @@ module Sinatra
         end
       end
       
-      app.get '/path' do
-        options.root_path
+      app.get '/admin/posts' do
+        authorize!
+        @posts = Post.all.reverse
+        erb :admin_posts
       end
       
+      app.get '/admin/posts/add' do
+        authorize!
+        erb :admin_posts_add
+      end
+
+      app.post '/admin/posts/add' do
+        authorize!
+        Post.create( :title => params[:title], :content=>params[:content], :published_at=>Time.now ).save
+        redirect '/admin/posts'
+      end
+      
+      # 404 error
       app.not_found do
         '<h1>I only found this 404 error :(</h1>'
       end

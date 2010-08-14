@@ -1,0 +1,6 @@
+<a href="/admin/posts/add">Write a new post</a><br/>
+<% if @posts %>
+  <% @posts.each do |post| %>
+    <a href="/posts/<%= post[:_id]%>"><%= post[:title] %></a><br/>
+  <% end %>
+<% end %>
