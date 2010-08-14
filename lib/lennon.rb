@@ -125,8 +125,7 @@ module Sinatra
         Post.update( params[:id] , {
           :title=>params[:title],
           :slug=>params[:slug],
-          :content=>params[:content],
-          :published_at=>params[:published_at]
+          :content=>params[:content]
         })
         redirect '/admin/posts'
       end

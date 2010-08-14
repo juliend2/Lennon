@@ -10,7 +10,7 @@
   get path do 
     @per_page = options.per_page
     @count = Post.count
-    @posts = Post.paginate(:per_page => options.per_page, :page => params[:page] || 1)
+    @posts = Post.paginate(:per_page => options.per_page, :page => params[:page] || 1, :order=>'published_at DESC')
     erb :posts
   end
 end
