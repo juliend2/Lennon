@@ -15,6 +15,7 @@ class Post
   timestamps!
 end
 
+
 ['/', '/page/:page'].each do |path|
   get path do 
     @per_page = options.per_page

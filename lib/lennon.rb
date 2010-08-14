@@ -6,20 +6,6 @@ module Sinatra
     
     module Helpers
       
-      ##
-      # Helper method for file references.
-      # (Stolen from Padrino-framework)
-      #
-      # ==== Examples
-      #
-      #   # Referencing a file in config called settings.yml
-      #   root("config", "settings.yml")
-      #   # returns LENNON_ROOT + "/config/setting.yml"
-      # 
-      def root(*args)
-        File.expand_path(File.join(LENNON_ROOT, *args))
-      end
-      
       def link_to(label, path)
         "<a href='#{path}'>#{label}</a>"
       end
@@ -64,6 +50,10 @@ module Sinatra
       MongoMapper.connection = Mongo::Connection.new(app.conf['mongo_host'], app.conf['mongo_port'], :auto_reconnect => true)
       MongoMapper.database = app.conf['mongo_db']
       MongoMapper.database.authenticate(app.conf['mongo_user'], app.conf['mongo_pass'])
+      
+      layout do
+        File.read(File.expand_path(File.join(LENNON_ROOT, 'views/layout.erb')))
+      end
       
       # Admin
       # 
