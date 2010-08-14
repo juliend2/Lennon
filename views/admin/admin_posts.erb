@@ -1,6 +1,19 @@
 <a href="/admin/posts/add">Write a new post</a><br/>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Actions</th>
+  </tr>
 <% if @posts %>
   <% @posts.each do |post| %>
-    <a href="/posts/<%= post[:_id]%>"><%= post[:title] %></a><br/>
+  <tr>
+    <td>
+      <a href="/posts/<%= post[:_id] %>"><%= post[:title] %></a><br/>
+    </td>
+    <td>
+      <%= delete_btn('Delete', "/admin/posts/#{post[:_id]}") %>
+    </td>
+  </tr>
   <% end %>
 <% end %>
+</table>

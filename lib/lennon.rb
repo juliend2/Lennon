@@ -10,6 +10,15 @@ module Sinatra
         "<a href='#{path}'>#{label}</a>"
       end
       
+      def delete_btn(label, path)
+        <<-HTML
+        <form method="post" action="#{ path }" onsubmit="return confirm('Are you sure?');">
+          <input type="hidden" name="_method" value="delete" />
+          <button type="submit">#{ label }</button>
+        </form>
+        HTML
+      end
+      
       # pagination-related helpers
       # 
       def paginate(max_pages, current)
@@ -84,6 +93,12 @@ module Sinatra
         authorize!
         @posts = Post.all.reverse
         erb :"admin/admin_posts", :layout=>:"admin/layout_admin"
+      end
+      
+      app.delete '/admin/posts/:id' do
+        @post = Post.find(params[:id])
+        @post.destroy
+        redirect '/admin/posts'
       end
       
       app.get '/admin/posts/add/?' do
