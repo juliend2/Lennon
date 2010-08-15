@@ -1,15 +1,19 @@
 <form action="/admin/posts/add" method="post" accept-charset="utf-8">
+  <% if @messages %>
+    <p class="error">Error:<br/> 
+    <%= @messages.join('<br/>') %></p>
+  <% end %>
   <p>
     <label for="title">Title</label><br/>
-    <input type="text" name="title" value="" id="title"/>
+    <%= text_field 'title' %>
   </p>
   <p>
     <label for="slug">Slug</label><br/>
-    <input type="text" name="slug" value="" id="slug"/>
+    <%= text_field 'slug' %>
   </p>
   <p>
     <label for="content">Content</label><br/>
-    <textarea name="content" rows="8" id="content" cols="40"></textarea>
+    <%= text_area 'content' %>
   </p>
   <p><input type="submit" value="Continue &rarr;"/></p>
 </form>

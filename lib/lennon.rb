@@ -6,6 +6,24 @@ module Sinatra
     
     module Helpers
       
+      def text_field(name)
+        if params.include? name
+          value = params[name]
+        else
+          value = ''
+        end
+        "<input type='text' name='#{name}' value='#{value}' id='#{name}_field'/>"
+      end
+      
+      def text_area(name)
+        if params.include? name
+          value = params[name]
+        else
+          value = ''
+        end
+        "<textarea name='#{name}' rows='8' id='#{name}_field' cols='40'>#{value}</textarea>"
+      end
+      
       def link_to(label, path)
         "<a href='#{path}'>#{label}</a>"
       end
@@ -91,6 +109,8 @@ module Sinatra
       
       # CRUD
       # 
+      
+      # Create
       app.get '/admin/posts/add/?' do
         authorize!
         erb :"admin/admin_posts_add", :layout=>:"admin/layout_admin"
@@ -98,10 +118,18 @@ module Sinatra
       
       app.post '/admin/posts/add' do
         authorize!
-        Post.create( :title => params[:title], :slug => params[:slug], :content=>params[:content], :published_at=>Time.now ).save
-        redirect '/admin/posts'
+        post = Post.new( :title => params[:title], :slug => params[:slug], :content=>params[:content], :published_at=>Time.now )
+        unless post.save
+          post.errors
+          @messages = post.errors.full_messages
+          # @message = 'Doh!'
+          erb :"admin/admin_posts_add", :layout=>:"admin/layout_admin"
+        else
+          redirect '/admin/posts'
+        end
       end
       
+      # Read
       app.get '/admin/posts/?' do
         authorize!
         @posts = Post.all.reverse
@@ -114,6 +142,7 @@ module Sinatra
         erb :"admin/admin_post", :layout=>:"admin/layout_admin"
       end
       
+      # Update
       app.get '/admin/posts/:id/edit' do 
         authorize!
         @post = Post.find(params[:id])
@@ -130,6 +159,7 @@ module Sinatra
         redirect '/admin/posts'
       end
       
+      # Delete
       app.delete '/admin/posts/:id' do
         authorize!
         @post = Post.find(params[:id])
