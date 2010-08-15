@@ -1,16 +1,20 @@
 <form action="/admin/posts/<%= @post[:_id] %>" method="post" accept-charset="utf-8">
+  <% if @messages %>
+    <p class="error">Error:<br/> 
+    <%= @messages.join('<br/>') %></p>
+  <% end %>
   <input type="hidden" name="_method" value="put" id="_method"/>
   <p>
     <label for="title">Title</label><br/>
-    <input type="text" name="title" value="<%= @post[:title] %>" id="title"/>
+    <%= text_field 'title', @post[:title] %>
   </p>
   <p>
     <label for="slug">Slug</label><br/>
-    <input type="text" name="slug" value="<%= @post[:slug] %>" id="slug"/>
+    <%= text_field 'slug', @post[:slug] %>
   </p>
   <p>
     <label for="content">Content</label><br/>
-    <textarea name="content" rows="8" id="content" cols="40"><%= @post[:content] %></textarea>
+    <%= text_area 'content', @post[:content] %>
   </p>
   <p><input type="submit" value="Continue &rarr;"/></p>
 </form>

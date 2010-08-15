@@ -6,20 +6,28 @@ module Sinatra
     
     module Helpers
       
-      def text_field(name)
+      def text_field(name, arg_value=nil)
         if params.include? name
           value = params[name]
         else
-          value = ''
+          unless arg_value.nil?
+            value = arg_value
+          else
+            value = ''
+          end
         end
         "<input type='text' name='#{name}' value='#{value}' id='#{name}_field'/>"
       end
       
-      def text_area(name)
+      def text_area(name, arg_value=nil)
         if params.include? name
           value = params[name]
         else
-          value = ''
+          unless arg_value.nil?
+            value = arg_value
+          else
+            value = ''
+          end
         end
         "<textarea name='#{name}' rows='8' id='#{name}_field' cols='40'>#{value}</textarea>"
       end
@@ -122,7 +130,6 @@ module Sinatra
         unless post.save
           post.errors
           @messages = post.errors.full_messages
-          # @message = 'Doh!'
           erb :"admin/admin_posts_add", :layout=>:"admin/layout_admin"
         else
           redirect '/admin/posts'
@@ -151,12 +158,19 @@ module Sinatra
       
       app.put '/admin/posts/:id' do
         authorize!
-        Post.update( params[:id] , {
+        post = Post.update( params[:id] , {
           :title=>params[:title],
           :slug=>params[:slug],
           :content=>params[:content]
         })
-        redirect '/admin/posts'
+        unless post.save
+          post.errors
+          @post = Post.find(params[:id])
+          @messages = post.errors.full_messages
+          erb :"admin/admin_posts_edit", :layout=>:"admin/layout_admin"
+        else
+          redirect '/admin/posts'
+        end
       end
       
       # Delete
