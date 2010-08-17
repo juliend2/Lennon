@@ -4,6 +4,7 @@
   mongo_mapper
   lib/lennon
   lib/post
+  lib/paginator
 }.each { |r| require r }
 
 ['/', '/page/:page'].each do |path|
@@ -16,8 +17,8 @@
 end
 
 get '/:year/:month/:day/:slug' do
-  time = Time.local(params[:year],params[:month],params[:day]).midnight
-  @post = Post.all(:created_at=>{
+  time = Time.gm(params[:year],params[:month],params[:day]).midnight
+  @post = Post.all(:published_at=>{
     '$gt' => time.to_time,
     '$lt' => (time + 1.day).to_time
   }, :slug=>params[:slug])

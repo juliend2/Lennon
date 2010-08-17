@@ -10,5 +10,6 @@
   <% end %>
 <% end %>
 <p>
-<%= paginate (@count / @per_page.to_f).ceil, params[:page] %>
+<% @paginator = Paginator.new((@count / @per_page.to_f).ceil, params[:page]) %>
+<%= @paginator.pages %>
 </p>

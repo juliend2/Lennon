@@ -45,21 +45,6 @@ module Sinatra
         HTML
       end
       
-      # pagination-related helpers
-      # 
-      def paginate(max_pages, current)
-        links = []
-        current = current || '1'
-        1.upto max_pages do |i|
-          if i.to_s == current
-            links << i
-          else
-            links << link_to( i, "/page/#{i}")
-          end
-        end
-        links.join(', ')
-      end
-      
       # Auth-related helpers
       # 
       def authorized?
