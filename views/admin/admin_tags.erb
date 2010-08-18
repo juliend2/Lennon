@@ -1,0 +1,20 @@
+<a href="/admin/tags/add">Write a new tag</a><br/>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Actions</th>
+  </tr>
+<% if @tags %>
+  <% @tags.each do |tag| %>
+  <tr>
+    <td>
+      <a href="/admin/tags/<%= tag.id %>"><%= tag.name %></a><br/>
+    </td>
+    <td>
+      <%= link_to 'Edit', "/admin/tags/#{tag.id}/edit"%>
+      <%= delete_btn('Delete', "/admin/tags/#{tag.id}") %>
+    </td>
+  </tr>
+  <% end %>
+<% end %>
+</table>

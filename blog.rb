@@ -1,10 +1,12 @@
 %w{
   rubygems
   sinatra
-  activerecord
+  active_record
   lib/lennon
   lib/post
+  lib/tag
   lib/paginator
+  lib/string
 }.each { |r| require r }
 
 ['/', '/page/:page'].each do |path|

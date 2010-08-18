@@ -1,0 +1,11 @@
+<form action="/admin/tags/add" method="post" accept-charset="utf-8">
+  <% if @messages %>
+    <p class="error">Error:<br/> 
+    <%= @messages.join('<br/>') %></p>
+  <% end %>
+  <p>
+    <label for="name">Name</label><br/>
+    <%= text_field 'name' %>
+  </p>
+  <p><input type="submit" value="Continue &rarr;"/></p>
+</form>

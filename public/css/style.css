@@ -65,10 +65,12 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
 #wrapper {
   width: 700px;
   margin: 0 auto;
 }
+
 h1, h2 {
   font-family: Constantia,"Lucida Bright",LucidaBright,"DejaVu Serif","Bitstream Vera Serif","Liberation Serif",Georgia,serif;
 }
@@ -80,6 +82,7 @@ h1 {
     text-decoration: none;
     color: #272728;
   }
+  
 h2 {
   font-size: 1.3em;
   line-height: 1.5em;
@@ -88,10 +91,11 @@ h2 {
     text-decoration: none;
     color: #424040;
   }
-  p.date {
-    font-size: 0.8em;
-    margin: .5em 0;
-  }
+
+p.date {
+  font-size: 0.8em;
+  margin: .5em 0;
+}  
 div.post_preview {
   margin-bottom: 1em;
 }

@@ -13,7 +13,7 @@ http://sinatra-book.gittr.com/#deployment
 You'll need to install these gems :
 
   sudo gem install sinatra
-  sudo gem install activerecord
+  sudo gem install active_record
 
 == Author
 

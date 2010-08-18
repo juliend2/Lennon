@@ -74,7 +74,7 @@ module Sinatra
       # 
       app.get '/admin/?' do
         if authorized?
-          "<a href='/admin/posts'>Manage Posts</a>"
+          erb :"admin/admin", :layout=>:"admin/layout_admin"
         else
           redirect '/admin/login'
         end
@@ -99,8 +99,10 @@ module Sinatra
         redirect '/'
       end
       
+      # # # # # # # # # # # # # # # # # # # # # 
       # CRUD
-      # 
+      
+      # POSTS
       
       # Create
       app.get '/admin/posts/add/?' do
@@ -163,6 +165,70 @@ module Sinatra
         @post = Post.find(params[:id])
         @post.destroy
         redirect '/admin/posts'
+      end
+
+      # TAGS
+      
+      # Create
+      app.get '/admin/tags/add/?' do
+        authorize!
+        erb :"admin/admin_tags_add", :layout=>:"admin/layout_admin"
+      end
+      
+      app.post '/admin/tags/add' do
+        authorize!
+        tag = Tag.new( :name => params[:name], :slug => params[:slug])
+        unless tag.save
+          tag.errors
+          @messages = tag.errors.full_messages
+          erb :"admin/admin_tags_add", :layout=>:"admin/layout_admin"
+        else
+          redirect '/admin/tags'
+        end
+      end
+      
+      # Read
+      app.get '/admin/tags/?' do
+        authorize!
+        @tags = Tag.all.reverse
+        erb :"admin/admin_tags", :layout=>:"admin/layout_admin"
+      end
+      
+      app.get '/admin/tags/:id' do
+        authorize!
+        @tag = Tag.find(params[:id])
+        erb :"admin/admin_tag", :layout=>:"admin/layout_admin"
+      end
+      
+      # Update
+      app.get '/admin/tags/:id/edit' do 
+        authorize!
+        @tag = Tag.find(params[:id])
+        erb :"admin/admin_tags_edit", :layout=>:"admin/layout_admin"
+      end
+      
+      app.put '/admin/tags/:id' do
+        authorize!
+        tag = Tag.update( params[:id] , {
+          :name=>params[:name],
+          :slug=>params[:slug]
+        })
+        unless tag.save
+          tag.errors
+          @tag = Tag.find(params[:id])
+          @messages = tag.errors.full_messages
+          erb :"admin/admin_tags_edit", :layout=>:"admin/layout_admin"
+        else
+          redirect '/admin/tags'
+        end
+      end
+      
+      # Delete
+      app.delete '/admin/tags/:id' do
+        authorize!
+        @tag = Tag.find(params[:id])
+        @tag.destroy
+        redirect '/admin/tags'
       end
       
       # 404 error
