@@ -12,6 +12,7 @@
     @per_page = options.per_page
     @count = Post.count
     @posts = Post.paginate(:per_page => options.per_page, :page => params[:page] || 1, :order=>'published_at DESC')
+    @paginator = Paginator.new((@count / @per_page.to_f).ceil, params[:page])
     erb :posts
   end
 end
