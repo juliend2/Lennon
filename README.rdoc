@@ -1,7 +1,6 @@
 = Lennon
 
-Lennon is a very simple blog engine built with Sinatra. Currently it's storing
-the posts in MongoDB, with MongoMapper.
+Lennon is a very simple blog engine built with Sinatra. It uses ActiveRecord for the DB.
 
 == Installation
 
@@ -14,7 +13,7 @@ http://sinatra-book.gittr.com/#deployment
 You'll need to install these gems :
 
   sudo gem install sinatra
-  sudo gem install mongo_mapper
+  sudo gem install activerecord
 
 == Author
 

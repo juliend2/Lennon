@@ -15,7 +15,6 @@
     @posts = Post.all(:limit=>options.per_page, 
                       :offset=> offset,
                       :order=>'published_at DESC')
-    # @posts = Post.paginate(:per_page => options.per_page, :page => params[:page] || 1, :order=>'published_at DESC')
     @paginator = Paginator.new((@count / @per_page.to_f).ceil, params[:page])
     erb :posts
   end
@@ -23,10 +22,7 @@ end
 
 get '/:year/:month/:day/:slug' do
   time = Time.gm(params[:year],params[:month],params[:day]).midnight
-  @post = Post.all(:published_at=>{
-    '$gt' => time.to_time,
-    '$lt' => (time + 1.day).to_time
-  }, :slug=>params[:slug])
+  @post = Post.all(:conditions=>{:published_at=>time.to_time..(time + 1.day).to_time, :slug=>params[:slug]})
   if @post.length > 0
     @post = @post[0]
     erb :post
