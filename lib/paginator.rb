@@ -18,15 +18,15 @@ class Paginator
     links.join(', ') if links.length > 1
   end
   
-  def prev
+  def prev(str='Previous')
     if @current > 1
-      link_to "Prev", "/page/#{@current-1}"
+      link_to str, "/page/#{@current-1}"
     end
   end
   
-  def next
+  def next(str='Next')
     if @max_pages > @current
-      link_to "Next", "/page/#{@current+1}"
+      link_to str, "/page/#{@current+1}"
     end
   end
 end

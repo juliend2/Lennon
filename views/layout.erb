@@ -1,10 +1,12 @@
 <html>
 <head>
   <title><%= options.conf['blog_title'] %></title>
-  <link rel="stylesheet" href="/admin/css/style.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
 </head>
 <body>
+  <div id="wrapper">
   <h1><a href="/"><%= options.conf['blog_title']%></a></h1>
   <%= yield %>
+  </div>
 </body>
 </html>

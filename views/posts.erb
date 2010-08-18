@@ -1,16 +1,20 @@
+<div id="posts">
 <% if @posts %>
   <% @posts.each do |post| %>
-    <h2>
+    <div class="post_preview">
+      <h2>
       <a href="/<%= post.published_at.year %>/<%= post.published_at.month %>/<%= post.published_at.day %>/<%= post.slug %>">
       <%= post.title %>
       </a>
     </h2>
-    <h3><%= post.published_at.strftime("%b %d, %Y") %></h3>
     <p><%= post.content %></p>
+    <p class="date"><%= post.published_at.strftime("%b %d, %Y") %></p>
+    </div>
   <% end %>
 <% end %>
-<p>
+</div>
+<div id="pagination">
 <%= @paginator.prev %>
 <%= @paginator.pages %>
 <%= @paginator.next %>
-</p>
+</div>

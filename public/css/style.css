@@ -1,0 +1,100 @@
+/*
+  RESET
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*
+  CUSTOM
+*/
+body {
+  font: 1em/1.2em Corbel,"Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,sans-serif;
+  color: #363636;
+}
+a {
+  color: #4C4C4C;
+}
+a:hover {
+  text-decoration: underline;
+}
+#wrapper {
+  width: 700px;
+  margin: 0 auto;
+}
+h1, h2 {
+  font-family: Constantia,"Lucida Bright",LucidaBright,"DejaVu Serif","Bitstream Vera Serif","Liberation Serif",Georgia,serif;
+}
+h1 {
+  font-size: 2em;
+  line-height: 2.4em;
+}
+  h1 a {
+    text-decoration: none;
+    color: #272728;
+  }
+h2 {
+  font-size: 1.3em;
+  line-height: 1.5em;
+}
+  h2 a {
+    text-decoration: none;
+    color: #424040;
+  }
+  p.date {
+    font-size: 0.8em;
+    margin: .5em 0;
+  }
+div.post_preview {
+  margin-bottom: 1em;
+}
+div#pagination {
+  margin-bottom: 1em;
+}

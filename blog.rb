@@ -22,7 +22,10 @@ end
 
 get '/:year/:month/:day/:slug' do
   time = Time.gm(params[:year],params[:month],params[:day]).midnight
-  @post = Post.all(:conditions=>{:published_at=>time.to_time..(time + 1.day).to_time, :slug=>params[:slug]})
+  @post = Post.all(:conditions=>{
+      :published_at=>time.to_time..(time + 1.day).to_time, 
+      :slug=>params[:slug]
+    })
   if @post.length > 0
     @post = @post[0]
     erb :post
