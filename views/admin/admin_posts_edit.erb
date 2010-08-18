@@ -1,4 +1,4 @@
-<form action="/admin/posts/<%= @post[:_id] %>" method="post" accept-charset="utf-8">
+<form action="/admin/posts/<%= @post.id %>" method="post" accept-charset="utf-8">
   <% if @messages %>
     <p class="error">Error:<br/> 
     <%= @messages.join('<br/>') %></p>
@@ -6,15 +6,15 @@
   <input type="hidden" name="_method" value="put" id="_method"/>
   <p>
     <label for="title">Title</label><br/>
-    <%= text_field 'title', @post[:title] %>
+    <%= text_field 'title', @post.title %>
   </p>
   <p>
     <label for="slug">Slug</label><br/>
-    <%= text_field 'slug', @post[:slug] %>
+    <%= text_field 'slug', @post.slug %>
   </p>
   <p>
     <label for="content">Content</label><br/>
-    <%= text_area 'content', @post[:content] %>
+    <%= text_area 'content', @post.content %>
   </p>
   <p><input type="submit" value="Continue &rarr;"/></p>
 </form>

@@ -8,11 +8,11 @@
   <% @posts.each do |post| %>
   <tr>
     <td>
-      <a href="/admin/posts/<%= post[:_id] %>"><%= post[:title] %></a><br/>
+      <a href="/admin/posts/<%= post.id %>"><%= post.title %></a><br/>
     </td>
     <td>
-      <%= link_to 'Edit', "/admin/posts/#{post[:_id]}/edit"%>
-      <%= delete_btn('Delete', "/admin/posts/#{post[:_id]}") %>
+      <%= link_to 'Edit', "/admin/posts/#{post.id}/edit"%>
+      <%= delete_btn('Delete', "/admin/posts/#{post.id}") %>
     </td>
   </tr>
   <% end %>

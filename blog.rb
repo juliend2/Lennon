@@ -1,7 +1,7 @@
 %w{
   rubygems
   sinatra
-  mongo_mapper
+  activerecord
   lib/lennon
   lib/post
   lib/paginator
@@ -11,7 +11,11 @@
   get path do 
     @per_page = options.per_page
     @count = Post.count
-    @posts = Post.paginate(:per_page => options.per_page, :page => params[:page] || 1, :order=>'published_at DESC')
+    offset = ((params[:page]||0).to_i-1)*options.per_page
+    @posts = Post.all(:limit=>options.per_page, 
+                      :offset=> offset,
+                      :order=>'published_at DESC')
+    # @posts = Post.paginate(:per_page => options.per_page, :page => params[:page] || 1, :order=>'published_at DESC')
     @paginator = Paginator.new((@count / @per_page.to_f).ceil, params[:page])
     erb :posts
   end

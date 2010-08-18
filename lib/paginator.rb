@@ -3,7 +3,7 @@ class Paginator
 
   def initialize(max_pages, current)
     @max_pages = max_pages
-    @current = current.to_i || 1
+    @current = (current || 1).to_i
   end
 
   def pages
@@ -15,7 +15,7 @@ class Paginator
         links << link_to( i, "/page/#{i}")
       end
     end
-    links.join(', ')
+    links.join(', ') if links.length > 1
   end
   
   def prev

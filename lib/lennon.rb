@@ -65,11 +65,10 @@ module Sinatra
       app.helpers Lennon::Helpers
       app.set :per_page, 4
       app.set :sessions, true
-      app.set :conf, YAML.load_file("#{app.root('.')}/config.yml")[app.environment.to_s]
+      app.set :conf, YAML.load_file("#{app.root('.')}/config/config.yml")[app.environment.to_s]
+      app.set :dbconf, YAML.load_file("#{app.root('.')}/config/database.yml")
       
-      MongoMapper.connection = Mongo::Connection.new(app.conf['mongo_host'], app.conf['mongo_port'], :auto_reconnect => true)
-      MongoMapper.database = app.conf['mongo_db']
-      MongoMapper.database.authenticate(app.conf['mongo_user'], app.conf['mongo_pass'])
+      ActiveRecord::Base.establish_connection app.dbconf[app.environment.to_s]
       
       # Admin
       # 
