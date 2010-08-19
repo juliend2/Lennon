@@ -1,8 +1,8 @@
-<a href="/admin/posts/add">Write a new post</a><br/>
+<a class="button_new radius5" href="/admin/posts/add">Write a new post</a><br/>
 <table>
   <tr>
     <th>Title</th>
-    <th>Actions</th>
+    <th class="actions">Actions</th>
   </tr>
 <% if @posts %>
   <% @posts.each do |post| %>
@@ -10,7 +10,7 @@
     <td>
       <a href="/admin/posts/<%= post.id %>"><%= post.title %></a><br/>
     </td>
-    <td>
+    <td class="actions">
       <%= link_to 'Edit', "/admin/posts/#{post.id}/edit"%>
       <%= delete_btn('Delete', "/admin/posts/#{post.id}") %>
     </td>

@@ -1,8 +1,138 @@
-* {
-  margin: 0;
-  padding: 0;
+/*
+  RESET
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
 }
 
-body {
-  font: 62.5% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
 }
+
+/* remember to highlight inserts somehow! */
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Forms */
+input[type='text'], textarea {
+  border: 1px solid #999;
+  font-size: 1.2em;
+  line-height: 1.4em;
+  padding: 4px 2px;
+  color: #5E5E5E;
+  width: 100%;
+}
+  input[type='text']:focus, textarea:focus {
+    border: 1px solid #5C5C5C;
+    color: #2A2A2A;
+  }
+
+
+/*
+  CUSTOM
+*/
+body {
+  font: 1em/1.2em Corbel,"Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans","Bitstream Vera Sans","Liberation Sans",Verdana,sans-serif;
+  color: #363636;
+}
+a {
+  color: #4C4C4C;
+}
+a:hover {
+  text-decoration: underline;
+}
+.radius5 {
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+#wrapper {
+  width: 700px;
+  margin: 0 auto;
+}
+
+h1, h2 {
+  font-family: Constantia,"Lucida Bright",LucidaBright,"DejaVu Serif","Bitstream Vera Serif","Liberation Serif",Georgia,serif;
+}
+h1 {
+  font-size: 2em;
+  line-height: 2.4em;
+}
+  
+h2 {
+  font-size: 1.3em;
+  line-height: 1.5em;
+}
+
+a.button_new {
+  background: #5C9965;
+  color: #FFF;
+  padding: 5px;
+} 
+  a.button_new:hover {
+    background: #77C582;
+    color: #383838;
+  }
+a.button {
+  background: #567699;
+  color: #fff;
+  padding: 5px;
+}
+  a.button:hover {
+    background: #87B2C5;
+    color: #383838;
+  }
+
+table {
+  margin-top: 1em;
+  width: 100%;
+}
+  th {
+    text-align: left;
+  }
+  th.actions {
+    width: 200px;
+    white-space: nowrap;
+  }
+    td.actions form, td.actions button {
+      display: inline;
+    }
