@@ -10,7 +10,7 @@
     <td>
       <a href="/admin/tags/<%= tag.id %>"><%= tag.name %></a><br/>
     </td>
-    <td>
+    <td class="actions">
       <%= link_to 'Edit', "/admin/tags/#{tag.id}/edit"%>
       <%= delete_btn('Delete', "/admin/tags/#{tag.id}") %>
     </td>
