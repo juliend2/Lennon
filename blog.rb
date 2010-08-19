@@ -22,7 +22,7 @@
 end
 
 # get '/:year/:month/:day/:slug' do
-get %r{/(\d{4})\/(\d{1,2})\/(\d{1,2})\/([^A-Za-z0-9\.\-]+)\/?} do |year, month, day, slug|
+get %r{/(\d{4})\/(\d{1,2})\/(\d{1,2})\/([A-Za-z0-9\.\-]+)\/?} do |year, month, day, slug|
   time = Time.gm(year,month,day).midnight
   @post = Post.all(:conditions=>{
       :published_at=>time.to_time..(time + 1.day).to_time, 

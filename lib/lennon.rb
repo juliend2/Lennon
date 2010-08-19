@@ -6,6 +6,15 @@ module Sinatra
     
     module Helpers
       
+      def strip_tags(text)
+        text.gsub(/<\/?[^>]*>/, "")
+      end
+      
+      def truncate_words(text, length = 100, end_string = ' &hellip;')
+        words = text.split()
+        words[0..(length-1)].join(' ') + (words.length > length ? end_string : '')
+      end
+    
       def text_field(name, arg_value=nil, attrs={})
         if params.include? name
           value = params[name]
