@@ -1,0 +1,10 @@
+<h2>Tags</h2>
+<ul>
+<% puts @post.tags %>
+<% @tags.each do |tag| %>
+  <li>
+  <label for="tag_checkbox_<%= tag.id %>"><%= tag.name %></label>
+  <%= checkbox 'post[tags][]', tag.id, @post.tags.include?(tag) %>
+  </li>
+<% end %>
+</ul>

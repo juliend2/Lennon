@@ -12,5 +12,8 @@
     <label for="content">Content</label><br/>
     <%= text_area 'content', @post.content %>
   </p>
+  <p>
+    <%= partial :"admin/_tags_chooser", :locals=>{:post=>@post, :tags=>@tags} %>
+  </p>
   <p><input type="submit" value="Continue &rarr;"/></p>
 </form>

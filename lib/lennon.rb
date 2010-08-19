@@ -32,6 +32,11 @@ module Sinatra
         "<textarea name='#{name}' rows='8' id='#{name}_field' cols='40'>#{value}</textarea>"
       end
       
+      def checkbox(name, value, is_checked=false)
+        checked = "checked='checked'" if is_checked
+        "<input type='checkbox' name='#{name}' value='#{value}' id='#{name}_checkbox_#{value}' #{checked} />"
+      end
+      
       def link_to(label, path)
         "<a href='#{path}'>#{label}</a>"
       end
@@ -43,6 +48,22 @@ module Sinatra
           <button type="submit">#{ label }</button>
         </form>
         HTML
+      end
+      
+      def partial(template, *args)
+        options = args.extract_options!
+        options.merge!(:layout => false)
+        if collection = options.delete(:collection) then
+          collection.inject([]) do |buffer, member|
+            buffer << erb(template, options.merge(
+                                      :layout => false, 
+                                      :locals => {template.to_sym => member}
+                                    )
+                         )
+          end.join("\n")
+        else
+          erb(template, options)
+        end
       end
       
       # Auth-related helpers
@@ -66,9 +87,9 @@ module Sinatra
       app.set :per_page, 4
       app.set :sessions, true
       app.set :conf, YAML.load_file("#{app.root('.')}/config/config.yml")[app.environment.to_s]
-      app.set :dbconf, YAML.load_file("#{app.root('.')}/config/database.yml")
+      app.set :dbconf, YAML.load_file("#{app.root('.')}/config/database.yml")[app.environment.to_s]
       
-      ActiveRecord::Base.establish_connection app.dbconf[app.environment.to_s]
+      ActiveRecord::Base.establish_connection app.dbconf
       
       # Admin
       # 
@@ -107,12 +128,21 @@ module Sinatra
       # Create
       app.get '/admin/posts/add/?' do
         authorize!
+        @post = Post.new
+        @tags = Tag.all
         erb :"admin/admin_posts_add", :layout=>:"admin/layout_admin"
       end
       
       app.post '/admin/posts/add' do
         authorize!
         post = Post.new( :title => params[:title], :slug => params[:slug], :content=>params[:content], :published_at=>Time.now )
+        if params[:post]
+          tag_ids = params[:post][:tags]
+        else
+          tag_ids = []
+        end
+        tags = Tag.all(:conditions=>{:id=>(tag_ids)})
+        post.tags = tags
         unless post.save
           post.errors
           @messages = post.errors.full_messages
@@ -138,6 +168,7 @@ module Sinatra
       # Update
       app.get '/admin/posts/:id/edit' do 
         authorize!
+        @tags = Tag.all
         @post = Post.find(params[:id])
         erb :"admin/admin_posts_edit", :layout=>:"admin/layout_admin"
       end
@@ -149,6 +180,13 @@ module Sinatra
           :slug=>params[:slug],
           :content=>params[:content]
         })
+        if params[:post]
+          tag_ids = params[:post][:tags]
+        else
+          tag_ids = []
+        end
+        tags = Tag.all(:conditions=>{:id=>(tag_ids)})
+        post.tags = tags
         unless post.save
           post.errors
           @post = Post.find(params[:id])
