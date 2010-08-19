@@ -11,22 +11,22 @@
 
 ['/', '/page/:page'].each do |path|
   get path do 
-    @per_page = options.per_page
     @count = Post.count
     offset = ((params[:page]||0).to_i-1)*options.per_page
     @posts = Post.all(:limit=>options.per_page, 
                       :offset=> offset,
                       :order=>'published_at DESC')
-    @paginator = Paginator.new((@count / @per_page.to_f).ceil, params[:page])
+    @paginator = Paginator.new((@count / options.per_page.to_f).ceil, params[:page])
     erb :posts
   end
 end
 
-get '/:year/:month/:day/:slug' do
-  time = Time.gm(params[:year],params[:month],params[:day]).midnight
+# get '/:year/:month/:day/:slug' do
+get %r{/(\d{4})\/(\d{1,2})\/(\d{1,2})\/([-\w\d]+)\/?} do |year, month, day, slug|
+  time = Time.gm(year,month,day).midnight
   @post = Post.all(:conditions=>{
       :published_at=>time.to_time..(time + 1.day).to_time, 
-      :slug=>params[:slug]
+      :slug=>slug
     })
   if @post.length > 0
     @post = @post[0]
@@ -34,5 +34,18 @@ get '/:year/:month/:day/:slug' do
   else
     status 404
     "Not found"
+  end
+end
+
+['/tags/:tag_slug/?', '/tags/:tag_slug/page/:page/?'].each do |path|
+  get path do
+    @tag = Tag.find_by_slug(params[:tag_slug])
+    @count = @tag.posts.count
+    offset = ((params[:page]||0).to_i-1)*options.per_page
+    @posts = @tag.posts.all(:limit=>options.per_page, 
+                      :offset=> offset,
+                      :order=>'created_at DESC')
+    @paginator = Paginator.new((@count / options.per_page.to_f).ceil, params[:page], "/tags/#{@tag.slug}")
+    erb :tags
   end
 end

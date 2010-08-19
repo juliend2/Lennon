@@ -92,7 +92,7 @@ h2 {
     color: #424040;
   }
 
-p.date {
+p.date, p.tags {
   font-size: 0.8em;
   margin: .5em 0;
 }  

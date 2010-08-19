@@ -1,9 +1,10 @@
 class Paginator
   include Sinatra::Lennon::Helpers
 
-  def initialize(max_pages, current)
+  def initialize(max_pages, current, url_prefix='')
     @max_pages = max_pages
     @current = (current || 1).to_i
+    @url_prefix = url_prefix
   end
 
   def pages
@@ -12,7 +13,7 @@ class Paginator
       if i == @current
         links << i
       else
-        links << link_to( i, "/page/#{i}")
+        links << link_to( i, "#{@url_prefix}/page/#{i}")
       end
     end
     links.join(', ') if links.length > 1
@@ -20,13 +21,13 @@ class Paginator
   
   def prev(str='Previous')
     if @current > 1
-      link_to str, "/page/#{@current-1}"
+      link_to str, "#{@url_prefix}/page/#{@current-1}"
     end
   end
   
   def next(str='Next')
     if @max_pages > @current
-      link_to str, "/page/#{@current+1}"
+      link_to str, "#{@url_prefix}/page/#{@current+1}"
     end
   end
 end
