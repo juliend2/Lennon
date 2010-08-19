@@ -2,6 +2,28 @@
 <head>
   <title>Blog Administration</title>
   <link rel="stylesheet" href="/admin/css/style.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+  <script type="text/javascript" src="/admin/ckeditor/ckeditor.js"></script>
+  <script type="text/javascript" src="/admin/ckeditor/adapters/jquery.js"></script>
+
+  <script type="text/javascript">
+  //<![CDATA[
+  $(function()
+  {
+  	var config = {
+  		toolbar:
+  		[
+  			['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink'],
+  			['UIColor']
+  		]
+  	};
+  	// Initialize the editor.
+  	// Callback function can be passed and executed after full instance creation.
+  	$('.jquery_ckeditor').ckeditor(config);
+  });
+  //]]>
+  </script>
+  
 </head>
 <body>
   <div id="wrapper">

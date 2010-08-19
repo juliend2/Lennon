@@ -10,7 +10,7 @@
   </p>
   <p>
     <label for="content">Content</label><br/>
-    <%= text_area 'content', @post.content %>
+    <%= text_area 'content', @post.content, {:class=>'jquery_ckeditor'} %>
   </p>
   <p>
     <%= partial :"admin/_tags_chooser", :locals=>{:post=>@post, :tags=>@tags} %>

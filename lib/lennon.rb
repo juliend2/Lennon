@@ -6,7 +6,7 @@ module Sinatra
     
     module Helpers
       
-      def text_field(name, arg_value=nil)
+      def text_field(name, arg_value=nil, attrs={})
         if params.include? name
           value = params[name]
         else
@@ -16,10 +16,10 @@ module Sinatra
             value = ''
           end
         end
-        "<input type='text' name='#{name}' value='#{value}' id='#{name}_field'/>"
+        "<input type='text' name='#{name}' value='#{value}' id='#{name}_field' #{attributize(attrs)}/>"
       end
       
-      def text_area(name, arg_value=nil)
+      def text_area(name, arg_value=nil, attrs={})
         if params.include? name
           value = params[name]
         else
@@ -29,16 +29,16 @@ module Sinatra
             value = ''
           end
         end
-        "<textarea name='#{name}' rows='8' id='#{name}_field' cols='40'>#{value}</textarea>"
+        "<textarea name='#{name}' rows='8' id='#{name}_field' cols='40' #{attributize(attrs)}>#{value}</textarea>"
       end
       
-      def checkbox(name, value, is_checked=false)
+      def checkbox(name, value, is_checked=false, attrs={})
         checked = "checked='checked'" if is_checked
-        "<input type='checkbox' name='#{name}' value='#{value}' id='#{name}_checkbox_#{value}' #{checked} />"
+        "<input type='checkbox' name='#{name}' value='#{value}' id='#{name}_checkbox_#{value}' #{checked} #{attributize(attrs)} />"
       end
       
-      def link_to(label, path)
-        "<a href='#{path}'>#{label}</a>"
+      def link_to(label, path, attrs={})
+        "<a href='#{path}' #{attributize(attrs)}>#{label}</a>"
       end
       
       def delete_btn(label, path)
@@ -48,6 +48,14 @@ module Sinatra
           <button type="submit">#{ label }</button>
         </form>
         HTML
+      end
+      
+      def attributize(hash)
+        ret = ''
+        hash.each_pair do |att, val|
+          ret += " #{att}='#{val}'"
+        end
+        ret
       end
       
       def partial(template, *args)
