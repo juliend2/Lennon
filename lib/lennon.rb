@@ -149,10 +149,12 @@ module Sinatra
           @error = "No file selected"
           return @error
         end
+        # TODO: check that we have the "image" folder already there before uploading
         directory = "public/uploads/images"
         path = File.join(directory, name)
-        # We're using a while because otherwise f.write(tmpfile.read) will use 
+        # We're using a "while" because a plain f.write(tmpfile.read) would use 
         # as much RAM as the size of the attachment.
+        # Found here : http://www.ruby-forum.com/topic/193036
         while blk = tmpfile.read(65536)
           File.open(path, "a") { |f| f.write(blk) }
         end
@@ -160,6 +162,16 @@ module Sinatra
           var CKEditorFuncNum = #{params[:CKEditorFuncNum]};
           window.parent.CKEDITOR.tools.callFunction( CKEditorFuncNum, '/uploads/images/#{name}' );
         </script>"
+      end
+      
+      app.get '/admin/uploaded_images' do
+        authorize!
+        @images = []
+        basedir = "./public/uploads/images"
+        contains = Dir.new(basedir).entries
+        rejected = ['.', '..', '.DS_Store']
+        @images = contains.reject {|f| rejected.include? f }
+        erb :"admin/uploaded_images", :layout=>:"admin/layout_ckeditor"
       end
       
       # # # # # # # # # # # # # # # # # # # # # 
