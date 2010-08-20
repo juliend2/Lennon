@@ -125,7 +125,7 @@ module Sinatra
       app.post '/admin/login' do
         if params[:username] == app.conf['admin_user'] && params[:password] == app.conf['admin_pass']
           session[:authorized] = true
-          redirect '/'
+          redirect '/admin'
         else
           session[:authorized] = false
           redirect '/admin/login'
@@ -135,6 +135,23 @@ module Sinatra
       app.get '/admin/logout/?' do
         logout!
         redirect '/'
+      end
+      
+      app.post '/admin/upload' do
+        authorize!
+        unless params[:upload] &&
+               (tmpfile = params[:upload][:tempfile]) &&
+               (name = params[:upload][:filename])
+          @error = "No file selected"
+          return @error
+        end
+        directory = "public/uploads/images"
+        path = File.join(directory, name)
+        File.open(path, "wb") { |f| f.write(tmpfile.read) }
+        %Q"<script type='text/javascript'>
+          var CKEditorFuncNum = #{params[:CKEditorFuncNum]};
+          window.parent.CKEDITOR.tools.callFunction( CKEditorFuncNum, '/uploads/images/#{params[:upload][:filename]}' );
+        </script>"
       end
       
       # # # # # # # # # # # # # # # # # # # # # 

@@ -53,7 +53,7 @@ table {
 }
 
 /* Forms */
-input[type='text'], textarea {
+input[type='text'], input[type='password'], textarea {
   border: 1px solid #999;
   font-size: 1.2em;
   line-height: 1.4em;
@@ -61,7 +61,7 @@ input[type='text'], textarea {
   color: #5E5E5E;
   width: 100%;
 }
-  input[type='text']:focus, textarea:focus {
+  input[type='text']:focus, input[type='password']:focus, textarea:focus {
     border: 1px solid #5C5C5C;
     color: #2A2A2A;
   }
