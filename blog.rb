@@ -1,4 +1,5 @@
 %w{
+  cgi
   rubygems
   sinatra
   active_record

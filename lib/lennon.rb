@@ -10,6 +10,10 @@ module Sinatra
         text.gsub(/<\/?[^>]*>/, "")
       end
       
+      def escape_single_quotes(str)
+        str.gsub('\\','\0\0').gsub('</','<\/').gsub(/\r\n|\n|\r/, "\\n").gsub(/["']/) { |m| "\\#{m}" }
+      end
+      
       def truncate_words(text, length = 100, end_string = ' &hellip;')
         words = text.split()
         words[0..(length-1)].join(' ') + (words.length > length ? end_string : '')
@@ -147,10 +151,14 @@ module Sinatra
         end
         directory = "public/uploads/images"
         path = File.join(directory, name)
-        File.open(path, "wb") { |f| f.write(tmpfile.read) }
+        # We're using a while because otherwise f.write(tmpfile.read) will use 
+        # as much RAM as the size of the attachment.
+        while blk = tmpfile.read(65536)
+          File.open(path, "a") { |f| f.write(blk) }
+        end
         %Q"<script type='text/javascript'>
           var CKEditorFuncNum = #{params[:CKEditorFuncNum]};
-          window.parent.CKEDITOR.tools.callFunction( CKEditorFuncNum, '/uploads/images/#{params[:upload][:filename]}' );
+          window.parent.CKEDITOR.tools.callFunction( CKEditorFuncNum, '/uploads/images/#{name}' );
         </script>"
       end
       
