@@ -51,3 +51,8 @@ end
     erb :tags
   end
 end
+
+get '/rss.xml' do
+  @posts = Post.all(:limit=>20)
+  builder :rss
+end
