@@ -5,6 +5,12 @@ module Sinatra
   module Lennon # John Lennon was the best songwriter ever.
     
     module Helpers
+      include Rack::Utils
+      alias_method :h, :escape_html
+      
+      def nl_to_br(text)
+        text.gsub(/\n/, '<br>')
+      end
       
       def strip_tags(text)
         text.gsub(/<\/?[^>]*>/, "")

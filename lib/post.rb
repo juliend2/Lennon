@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
   validates_presence_of :content
   
   has_and_belongs_to_many :tags 
+  has_many :comments
   
   before_validation :sluggize
   

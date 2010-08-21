@@ -1,2 +1,31 @@
-<h1><%= @post.title %></h1>
-<%= @post.content %>
+<%= partial :_post, :locals=>{:post=>@post} %>
+<div id="comments">
+  <% @post.comments.each do |comment| %>
+    <%= partial :_comment, :locals=>{:comment=>comment} %>
+  <% end %>
+  <div id="leave_comment">
+  <h4>Leave a comment</h4>
+  <form method="post" action="/post-comment">
+    <input type="hidden" name="post_id" value="<%= @post.id %>" id="post_id"/>
+    <p>
+      <label for="name">Your Name *</label><br/>
+      <%= text_field 'name' %>
+    </p>
+    <p>
+      <label for="email">Your Email * (Will not be displayed)</label><br/>
+      <%= text_field 'email' %>
+    </p>
+    <p>
+      <label for="website">Your Website</label><br/>
+      <%= text_field 'website' %>
+    </p>
+    <p>
+      <label for="comment">Your Comment *</label><br/>
+      <%= text_area 'comment' %>
+    </p>
+    <p>
+      <input type="submit" name="submit" value="Submit" id="submit"/>
+    </p>
+  </form>
+  </div><!-- /leave_comment -->
+</div><!-- /comments -->

@@ -6,6 +6,7 @@
   lib/lennon
   lib/option
   lib/post
+  lib/comment
   lib/tag
   lib/paginator
   lib/string
@@ -13,7 +14,7 @@
 
 # for every pages :
 before do
-  # get all the tags
+  content_type "text/html", :charset => "utf-8"
   @tags = Tag.all
   @months = Post.get_months
 end
@@ -31,12 +32,15 @@ end
   end
 end
 
+# Display a single post
 # for /:year/:month/:day/:slug
 get %r{/(\d{4})\/(\d{1,2})\/(\d{1,2})\/([A-Za-z0-9\.\-]+)\/?} do |year, month, day, slug|
   time = Time.gm(year,month,day).midnight
-  @post = Post.all(:conditions=>{
+  @post = Post.all(:include=>[:comments],
+    :conditions=>{
       :published_at=>time.to_time..(time + 1.day).to_time, 
-      :slug=>slug
+      :slug=>slug,
+      'comments.is_approved'=>true
     })
   if @post.length > 0
     @post = @post[0]
@@ -44,6 +48,20 @@ get %r{/(\d{4})\/(\d{1,2})\/(\d{1,2})\/([A-Za-z0-9\.\-]+)\/?} do |year, month, d
   else
     status 404
     "Not found"
+  end
+end
+
+post '/post-comment' do
+  if post = Post.find(params[:post_id])
+    comment = post.comments.new(:name=>params[:name], :email=>params[:email], :website=>params[:website],:comment=>params[:comment],:is_approved=>options.conf.auto_approve_comments)
+    if comment.save
+      redirect "/#{post.created_at.year}/#{post.created_at.month}/#{post.created_at.day}/#{post.slug}"
+    else
+      @messages = comment.errors.full_messages
+      erb :post_comment
+    end
+  else
+    'Could not find this post. Please try again.'
   end
 end
 
@@ -78,7 +96,6 @@ end
     erb :archives
   end
 end
-
 
 # RSS feed
 get '/rss.xml' do

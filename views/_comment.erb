@@ -1,0 +1,9 @@
+<div class="comment">
+  <div class="commenter_infos">
+    <%= h comment.name %><br/>
+    <a href="<%= h comment.website %>" target="_blank"><%= h comment.website %></a>
+  </div>
+  <div class="commenter_body">
+    <p><%= nl_to_br( h(comment.comment)) %></p>
+  </div>
+</div><!-- /comment -->
