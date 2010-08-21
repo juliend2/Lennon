@@ -13,6 +13,6 @@ Option.create([
   {:option_name=>'public_directory', :option_value=>'public', :option_type=>'string'},
   {:option_name=>'admin_user', :option_value=>'admin', :option_type=>'string'},
   {:option_name=>'admin_pass', :option_value=>rand(2**256).to_s(36)[0..15], :option_type=>'string'},
-  {:option_name=>'disqus_shortname', :option_value=>'myawesomeblog', :option_type=>'string'},
-  {:option_name=>'disqus_enabled', :option_value=>false, :option_type=>'boolean'},
+  {:option_name=>'date_format', :option_value=>'%b %d, %Y', :option_type=>'string'},
+  {:option_name=>'posts_per_page', :option_value=>4, :option_type=>'integer'},
 ])

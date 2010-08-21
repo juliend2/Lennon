@@ -14,11 +14,11 @@
 ['/', '/page/:page'].each do |path|
   get path do 
     @count = Post.count
-    offset = ((params[:page]||0).to_i-1)*options.per_page
-    @posts = Post.all(:limit=>options.per_page, 
+    offset = ((params[:page]||0).to_i-1)*options.conf.posts_per_page
+    @posts = Post.all(:limit=>options.conf.posts_per_page, 
                       :offset=> offset,
                       :order=>'published_at DESC')
-    @paginator = Paginator.new((@count / options.per_page.to_f).ceil, params[:page])
+    @paginator = Paginator.new((@count / options.conf.posts_per_page.to_f).ceil, params[:page])
     erb :posts
   end
 end
@@ -43,11 +43,11 @@ end
   get path do
     @tag = Tag.find_by_slug(params[:tag_slug])
     @count = @tag.posts.count
-    offset = ((params[:page]||0).to_i-1)*options.per_page
-    @posts = @tag.posts.all(:limit=>options.per_page, 
+    offset = ((params[:page]||0).to_i-1)*options.conf.posts_per_page
+    @posts = @tag.posts.all(:limit=>options.conf.posts_per_page, 
                       :offset=> offset,
                       :order=>'created_at DESC')
-    @paginator = Paginator.new((@count / options.per_page.to_f).ceil, params[:page], "/tags/#{@tag.slug}")
+    @paginator = Paginator.new((@count / options.conf.posts_per_page.to_f).ceil, params[:page], "/tags/#{@tag.slug}")
     erb :tags
   end
 end

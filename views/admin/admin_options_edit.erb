@@ -8,7 +8,7 @@
   <input type="hidden" name="option_name" value="<%= @option.option_name %>" id="option_name"/>
   <p>
     <label for="option_value"><%= @option.option_name %></label><br/>
-    <% if @option.option_type == 'string' %>
+    <% if @option.option_type == 'string' || @option.option_type == 'text' || @option.option_type == 'integer' %>
       <%= text_field('option_value', @option.option_value) %>
     <% elsif @option.option_type == 'boolean' %>
       <%= checkbox('option_value', 't', @option.option_value=='t') %>
