@@ -1,0 +1,12 @@
+<div id="sidebar">
+  <h3>Tags</h3>
+  <div class="sidebar_block">
+    <ul>
+    <% @tags.each do |tag| %>
+      <li><%= link_to tag.name, "/tags/#{tag.slug}" %></li>
+    <% end %>
+    </ul>
+  </div>
+  
+  
+</div>

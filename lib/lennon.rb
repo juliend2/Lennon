@@ -105,9 +105,7 @@ module Sinatra
     
     def self.registered(app)
       app.helpers Lennon::Helpers
-      app.set :per_page, 4
       app.set :sessions, true
-      # app.set :conf, YAML.load_file("#{app.root('.')}/config/config.yml")[app.environment.to_s]
       app.set :conf, Conf.new
       app.set :dbconf, YAML.load_file("#{app.root('.')}/config/database.yml")[app.environment.to_s]
       

@@ -5,8 +5,17 @@
 </head>
 <body>
   <div id="wrapper">
-  <h1><a href="/"><%= options.conf.blog_title %></a></h1>
-  <%= yield %>
-  </div>
+  
+  <%= partial :_header %>
+    
+    <div id="content">
+    <%= yield %> 
+    </div><!-- /content -->
+    
+  <%= partial :_sidebar, {:tags=>@tags} %>
+  
+  <%= partial :_footer %>
+  
+  </div><!-- /wrapper -->
 </body>
 </html>

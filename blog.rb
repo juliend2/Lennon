@@ -11,6 +11,13 @@
   lib/string
 }.each { |r| require r }
 
+# for every pages :
+before do
+  # get all the tags
+  @tags = Tag.all
+end
+
+# for / and for and /page/1, /page/2, etc
 ['/', '/page/:page'].each do |path|
   get path do 
     @count = Post.count
@@ -23,7 +30,7 @@
   end
 end
 
-# get '/:year/:month/:day/:slug' do
+# for /:year/:month/:day/:slug
 get %r{/(\d{4})\/(\d{1,2})\/(\d{1,2})\/([A-Za-z0-9\.\-]+)\/?} do |year, month, day, slug|
   time = Time.gm(year,month,day).midnight
   @post = Post.all(:conditions=>{
@@ -39,6 +46,8 @@ get %r{/(\d{4})\/(\d{1,2})\/(\d{1,2})\/([A-Za-z0-9\.\-]+)\/?} do |year, month, d
   end
 end
 
+# Tag actions
+# /tags/my-tag and /tags/my-tag/page/2
 ['/tags/:tag_slug/?', '/tags/:tag_slug/page/:page/?'].each do |path|
   get path do
     @tag = Tag.find_by_slug(params[:tag_slug])
@@ -52,6 +61,7 @@ end
   end
 end
 
+# RSS feed
 get '/rss.xml' do
   @posts = Post.all(:limit=>20)
   builder :rss
