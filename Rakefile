@@ -10,4 +10,12 @@ namespace :db do
     ActiveRecord::Migration.verbose = true
     ActiveRecord::Migrator.migrate("db/migrate")
   end
+  
+  desc 'Load the seed data from db/seeds.rb'
+  task :seed => :environment do
+    require 'blog'
+    seed_file = File.join('.', 'db', 'seeds.rb')
+    load(seed_file) if File.exist?(seed_file)
+  end
+  
 end

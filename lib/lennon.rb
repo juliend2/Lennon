@@ -107,7 +107,8 @@ module Sinatra
       app.helpers Lennon::Helpers
       app.set :per_page, 4
       app.set :sessions, true
-      app.set :conf, YAML.load_file("#{app.root('.')}/config/config.yml")[app.environment.to_s]
+      # app.set :conf, YAML.load_file("#{app.root('.')}/config/config.yml")[app.environment.to_s]
+      app.set :conf, Conf.new
       app.set :dbconf, YAML.load_file("#{app.root('.')}/config/database.yml")[app.environment.to_s]
       
       ActiveRecord::Base.establish_connection app.dbconf
@@ -127,7 +128,7 @@ module Sinatra
       end
       
       app.post '/admin/login' do
-        if params[:username] == app.conf['admin_user'] && params[:password] == app.conf['admin_pass']
+        if params[:username] == app.conf.admin_user && params[:password] == app.conf.admin_pass
           session[:authorized] = true
           redirect '/admin'
         else

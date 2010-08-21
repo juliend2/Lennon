@@ -1,9 +1,10 @@
 %w{
-  cgi
   rubygems
   sinatra
   active_record
+  lib/conf
   lib/lennon
+  lib/option
   lib/post
   lib/tag
   lib/paginator
