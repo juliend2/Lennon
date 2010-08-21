@@ -10,4 +10,8 @@ class Post < ActiveRecord::Base
   def sluggize
     self.slug = self.title.to_slug
   end
+  
+  def self.get_months
+    self.all(:select=>'published_at').group_by{ |u| u.published_at.beginning_of_month }
+  end
 end

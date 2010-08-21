@@ -15,6 +15,7 @@
 before do
   # get all the tags
   @tags = Tag.all
+  @months = Post.get_months
 end
 
 # for / and for and /page/1, /page/2, etc
@@ -60,6 +61,24 @@ end
     erb :tags
   end
 end
+
+# Archive actions
+# /tags/my-tag and /tags/my-tag/page/2
+['/archive/:year/:month/?', '/archive/:year/:month/page/:page/?'].each do |path|
+  get path do
+    beginning = Time.gm(params[:year],params[:month]).beginning_of_month
+    ending = Time.gm(params[:year],params[:month]).end_of_month
+    @count = Post.count(:conditions=>{ :published_at=>beginning..ending })
+    offset = ((params[:page]||0).to_i-1)*options.conf.posts_per_page
+    @posts = Post.all(:limit=>options.conf.posts_per_page, 
+                      :offset=> offset,
+                      :order=>'published_at DESC',
+                      :conditions=>{ :published_at=>beginning..ending })
+    @paginator = Paginator.new((@count / options.conf.posts_per_page.to_f).ceil, params[:page], "/archive/#{params[:year]}/#{params[:month]}")
+    erb :archives
+  end
+end
+
 
 # RSS feed
 get '/rss.xml' do
