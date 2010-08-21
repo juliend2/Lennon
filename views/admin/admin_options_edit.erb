@@ -1,0 +1,18 @@
+<form action="/admin/options/<%= @option.id %>" method="post" accept-charset="utf-8">
+  <% if @messages %>
+    <p class="error">Error:<br/> 
+    <%= @messages.join('<br/>') %></p>
+  <% end %>
+  <input type="hidden" name="_method" value="put" id="_method"/>
+  <input type="hidden" name="id" value="<%= @option.id %>" id="id"/>
+  <input type="hidden" name="option_name" value="<%= @option.option_name %>" id="option_name"/>
+  <p>
+    <label for="option_value"><%= @option.option_name %></label><br/>
+    <% if @option.option_type == 'string' %>
+      <%= text_field('option_value', @option.option_value) %>
+    <% elsif @option.option_type == 'boolean' %>
+      <%= checkbox('option_value', 't', @option.option_value=='t') %>
+    <% end %>
+  </p>
+  <p><input type="submit" value="Update"/></p>
+</form>

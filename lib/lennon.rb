@@ -323,6 +323,53 @@ module Sinatra
         @tag.destroy
         redirect '/admin/tags'
       end
+
+      # Option
+      
+      # Read
+      app.get '/admin/options/?' do
+        authorize!
+        @options = Option.all.reverse
+        erb :"admin/admin_options", :layout=>:"admin/layout_admin"
+      end
+      
+      app.get '/admin/options/:id' do
+        authorize!
+        @options = Option.find(params[:id])
+        erb :"admin/admin_option", :layout=>:"admin/layout_admin"
+      end
+      
+      # Update
+      app.get '/admin/options/:id/edit' do 
+        authorize!
+        @option = Option.find(params[:id])
+        erb :"admin/admin_options_edit", :layout=>:"admin/layout_admin"
+      end
+      
+      app.put '/admin/options/:id' do
+        authorize!
+        option = Option.update( params[:id] , {
+          :option_name=>params[:option_name],
+          :option_value=>params[:option_value]
+        })
+        unless option.save
+          option.errors
+          @option = Option.find(params[:id])
+          @messages = option.errors.full_messages
+          erb :"admin/admin_options_edit", :layout=>:"admin/layout_admin"
+        else
+          redirect '/admin/options'
+        end
+      end
+      
+      # Delete
+      app.delete '/admin/options/:id' do
+        authorize!
+        @option = Option.find(params[:id])
+        @option.destroy
+        redirect '/admin/options'
+      end
+      
       
       # 404 error
       app.not_found do

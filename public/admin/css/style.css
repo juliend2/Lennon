@@ -136,3 +136,6 @@ table {
     td.actions form, td.actions button {
       display: inline;
     }
+#admin_menu {
+  margin-bottom: 20px;
+}

@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <th>Option Name</th>
+    <th>Option Value</th>
+    <th class="actions">Actions</th>
+  </tr>
+<% if @options %>
+  <% @options.each do |option| %>
+  <tr>
+    <td><%= option.option_name %></td>
+    <td><%= option.option_value %></td>
+    <td class="actions">
+      <%= link_to 'Edit', "/admin/options/#{option.id}/edit"%>
+    </td>
+  </tr>
+  <% end %>
+<% end %>
+</table>
