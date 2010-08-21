@@ -12,7 +12,7 @@
     <%= yield %> 
     </div><!-- /content -->
     
-  <%= partial :_sidebar, {:tags=>@tags} %>
+  <%= partial :_sidebar, :locals=>{:tags=>@tags} %>
   
   <%= partial :_footer %>
   

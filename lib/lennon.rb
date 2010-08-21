@@ -74,7 +74,7 @@ module Sinatra
       def partial(template, *args)
         options = args.extract_options!
         options.merge!(:layout => false)
-        if collection = options.delete(:collection) then
+        if collection = options.delete(:collection)
           collection.inject([]) do |buffer, member|
             buffer << erb(template, options.merge(
                                       :layout => false, 
