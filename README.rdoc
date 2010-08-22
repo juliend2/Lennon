@@ -4,14 +4,14 @@ Lennon is a blog engine built with Sinatra.
 
 == Installation
 
-1.You'll first need to copy database.yml.tpl to database.yml and modify the configurations.
-2.Issue a "rake db:migrate"
-3.Issue a "rake db:seed"
-4.Log into the database you're using, do a "select * from options" and see what is the value assigned for admin_pass. This is your password. The username by default is admin. You'll need it to access to the admin once you're set up.
-5.Deploy the app as any other Sinatra-based app. (See :
+1. You'll first need to copy database.yml.tpl to database.yml and modify the configurations.
+2. Issue a "rake db:migrate"
+3. Issue a "rake db:seed"
+4. Log into the database you're using, do a "select * from options" and see what is the value assigned for admin_pass. This is your password. The username by default is admin. You'll need it to access to the admin once you're set up.
+5. Deploy the app as any other Sinatra-based app. (See :
 http://sinatra-book.gittr.com/#deployment )
-6.Once the site is live, go to http://yoursite.com/admin and enter the admin username & password.
-7.Change the configurations (like your password) in the Option section of the admin.
+6. Once the site is live, go to http://yoursite.com/admin and enter the admin username & password.
+7. Change the configurations (like your password) in the Option section of the admin.
 
 == Dependencies
 
