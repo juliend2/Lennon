@@ -1,6 +1,13 @@
 = Lennon
 
-Lennon is a blog engine built with Sinatra.
+Lennon is a lightweight blogging engine built with Sinatra. It uses CKEditor's WYSIWYG to ease the edition of the content for non-geeks. It uses ActiveRecord for interacting with the database. For now it is only tested with Sqlite3. Comments are also stored in the database (it doesn't use Disqus).
+
+== Dependencies
+
+You'll need to install these gems :
+
+  sudo gem install sinatra
+  sudo gem install active_record
 
 == Installation
 
@@ -10,16 +17,14 @@ Lennon is a blog engine built with Sinatra.
 4. Log into the database you're using, do a "select * from options" and see what is the value assigned for admin_pass. This is your password. The username by default is admin. You'll need it to access to the admin once you're set up.
 5. Deploy the app as any other Sinatra-based app. (See: http://sinatra-book.gittr.com/#deployment )
 6. Once the site is live, go to http://yoursite.com/admin and enter the admin username & password.
-7. Change the configurations (like your password) in the Option section of the admin.
+7. Change the configurations (like your password) in the Options section of the admin.
 
-== Dependencies
+== Play with it!
 
-You'll need to install these gems :
-
-  sudo gem install sinatra
-  sudo gem install active_record
+Have some fun. Look at the code. Let me know if there's something missing or broken.
 
 == Author
 
 Julien Desrosiers.
 http://juliendesrosiers.com
+
