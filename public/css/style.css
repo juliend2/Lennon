@@ -52,6 +52,21 @@ table {
 	border-spacing: 0;
 }
 
+/* 
+  CLEARFIX 
+*/
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+	}
+* html .clearfix             { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+
+
 /*
   CUSTOM
 */
@@ -91,7 +106,30 @@ p {
     text-align: right;
     font-size: .7em;
   }
-
+#post_comments {
+  border-top: 1px solid #999;
+  padding-top: .7em;
+}
+  #post_comments .comment {
+    margin-bottom: .7em;
+    background: #F4F4F4;
+    padding: .7em;
+    clear: both;
+  }
+    .commenter_infos p {
+      font-size: .9em;
+    }
+    .comment .comment_body {
+      overflow-x: auto;
+    }
+      .comment_body p {
+        font-size: .8em;
+        line-height: 1.2em;
+      }
+#leave_comment {
+  border-top: 1px solid #999;
+  padding-top: .7em;
+}
 h1, h2 {
   font-family: Constantia,"Lucida Bright",LucidaBright,"DejaVu Serif","Bitstream Vera Serif","Liberation Serif",Georgia,serif;
 }

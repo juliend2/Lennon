@@ -1,9 +1,16 @@
-<div class="comment">
+<% if comment.is_approved %>
+<div class="comment clearfix">
   <div class="commenter_infos">
-    <%= h comment.name %><br/>
-    <a href="<%= h comment.website %>" target="_blank"><%= h comment.website %></a>
+    <p>
+    <% if comment.website != '' %>
+      <strong><a href="<%= h comment.website %>" target="_blank"><%= h comment.name %></a></strong>
+    <% else %>
+      <strong><%= h comment.name %></strong>
+    <% end %> says: 
+    </p>
   </div>
-  <div class="commenter_body">
+  <div class="comment_body">
     <p><%= nl_to_br( h(comment.comment)) %></p>
   </div>
 </div><!-- /comment -->
+<% end %>
