@@ -11,6 +11,8 @@ You'll need to install these gems :
 
 == Installation
 
+=== On your own server
+
 1. You'll first need to copy database.yml.tpl to database.yml and modify the configurations.
 2. Issue a "rake db:migrate"
 3. Issue a "rake db:seed"
@@ -18,6 +20,21 @@ You'll need to install these gems :
 5. Deploy the app as any other Sinatra-based app. (See: http://sinatra-book.gittr.com/#deployment )
 6. Once the site is live, go to http://yoursite.com/admin and enter the admin username & password.
 7. Change the configurations (like your password) in the Options section of the admin.
+
+=== On Heroku
+
+1. Issue a "heroku create <name of your heroku app>"
+2. Copy database.yml.tpl to database.yml and modify the configurations if needed
+3. Issue a "rake db:migrate"
+4. Issue a "rake db:seed"
+5. Issue a "heroku db:push"
+6. Log into the database you're using, do a "select * from options" and see what is the value assigned for admin_pass. This is your password. The username by default is admin. You'll need it to access to the admin once you're set up.
+7. Create a file called .gems and write the gems that you will need, separated by a new line. (Note: I needed to write activerecord without the underscore for it to work on Heroku).
+8. Remove the line "config/database.yml" in the .gitignore file.
+9. Commit your changes
+10. Issue a "git push heroku master"
+11. Once the site is live, go to http://<name of your heroku app>.heroku.com/admin and enter the admin username & password.
+12. Change the configurations (like your password) in the Options section of the admin.
 
 == Play with it!
 
