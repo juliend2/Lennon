@@ -156,7 +156,9 @@ h2 {
     text-decoration: none;
     color: #424040;
   }
-
+h3 {
+  margin-top: .5em;
+}
 p.date, p.tags {
   font-size: 0.8em;
   margin: .5em 0;

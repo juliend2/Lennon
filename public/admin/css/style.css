@@ -60,12 +60,16 @@ input[type='text'], input[type='password'], textarea {
   padding: 4px 2px;
   color: #5E5E5E;
   width: 100%;
+  margin-bottom: .7em;
 }
   input[type='text']:focus, input[type='password']:focus, textarea:focus {
     border: 1px solid #5C5C5C;
     color: #2A2A2A;
   }
 
+form#login_form input {
+  margin-bottom: .6em;
+}
 
 /*
   CUSTOM
@@ -86,9 +90,35 @@ a:hover {
 }
 
 #wrapper {
-  width: 700px;
-  margin: 0 auto;
+  margin: 0 10px;
 }
+.admin_box {
+  background: #E7E7E7;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+#post_form_container {
+  width: 100%;
+  float: left;
+}
+  /* left */
+  #post_form_left {
+    margin-right: 220px;
+    min-width: 400px;
+  }
+  /* right */
+  #post_form_right {
+    float: left;
+    width: 200px;
+    margin-left: -220px;
+    padding-left: 15px;
+  }
+    .form_buttons {
+      padding: 10px;
+    }
+      .form_buttons input[type="submit"] {
+        font-size: 1.4em;
+      }
 
 h1, h2 {
   font-family: Constantia,"Lucida Bright",LucidaBright,"DejaVu Serif","Bitstream Vera Serif","Liberation Serif",Georgia,serif;

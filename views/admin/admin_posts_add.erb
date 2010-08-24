@@ -1,18 +1,27 @@
-<form action="/admin/posts/add" method="post" accept-charset="utf-8">
+<form id="post_form" action="/admin/posts/add" method="post" accept-charset="utf-8">
+  <div id="post_form_container">
+    
+  <div id="post_form_left">
   <% if @messages %>
     <p class="error">Error:<br/> 
     <%= @messages.join('<br/>') %></p>
   <% end %>
   <p>
-    <label for="title">Title</label><br/>
-    <%= text_field 'title' %>
+    <%= text_field 'title', "Title" %>
   </p>
   <p>
     <label for="content">Content</label><br/>
     <%= text_area 'content',nil, {:class=>'jquery_ckeditor'} %>
   </p>
-  <p>
+  </div>
+  
+  </div>
+  
+  <div id="post_form_right">
+  <div class="admin_box form_buttons"><input type="submit" value="Create"/></div>
+  <div class="admin_box tags">
     <%= partial :"admin/_tags_chooser", :locals=>{:post=>@post, :tags=>@tags} %>
-  </p>
-  <p><input type="submit" value="Create"/></p>
+  </div>
+  </div>
+  
 </form>

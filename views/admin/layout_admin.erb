@@ -30,11 +30,13 @@
 <body>
   <div id="wrapper">
   <h1>Blog Administration</h1>
+  <% if authorized? %>
   <p id="admin_menu">
     <a class="button radius5" href="/admin/posts">Manage Posts</a> 
     <a class="button radius5" href="/admin/tags">Manage Tags</a>
     <a class="button radius5" href="/admin/options">Options</a>
   </p>
+  <% end %>
   <%= yield %>
   </div>
 </body>
