@@ -291,6 +291,13 @@ module Sinatra
         erb :"admin/admin_tags", :layout=>:"admin/layout_admin"
       end
       
+      app.get '/admin/tags/:post_id/ajax/?' do
+        authorize!
+        @tags = Tag.all.reverse
+        @post = Post.find(params[:post_id])
+        erb :"admin/admin_tags_ajax", :layout=>false
+      end
+      
       app.get '/admin/tags/:id' do
         authorize!
         @tag = Tag.find(params[:id])

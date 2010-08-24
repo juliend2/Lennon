@@ -2,12 +2,14 @@
 <head>
   <title>Blog Administration</title>
   <link rel="stylesheet" href="/admin/css/style.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-  <script type="text/javascript" src="/admin/ckeditor/ckeditor.js"></script>
-  <script type="text/javascript" src="/admin/ckeditor/adapters/jquery.js"></script>
-
+  <script src="/admin/javascript/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/admin/ckeditor/ckeditor.js" type="text/javascript"></script>
+  <script src="/admin/ckeditor/adapters/jquery.js" type="text/javascript"></script>
+  <script src="/admin/javascript/common.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript">
   //<![CDATA[
+  var lennon = {};
+  lennon.blog_url = "<%= options.conf.blog_url %>";
   $(function()
   {
   	var config = {

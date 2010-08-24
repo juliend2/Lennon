@@ -1,10 +1,11 @@
 <h2>Tags</h2>
-<ul>
-<% puts @post.tags %>
-<% @tags.each do |tag| %>
-  <li>
-  <label for="post[tags][]_checkbox_<%= tag.id %>"><%= tag.name %></label>
-  <%= checkbox 'post[tags][]', tag.id, @post.tags.include?(tag) %>
-  </li>
-<% end %>
-</ul>
+<div id="tag_ajax_form">
+  <p><input type="text" name="name" value="" id="tag_ajax_form_name"/></p>
+  <p><input id="tag_ajax_form_submit" type="submit" value="Create"/></p>
+</div>
+<ul id="tags_list" class="loading"><!-- load content via ajax --></ul>
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    tags.init(<%= @post.id %>);
+  });
+</script>

@@ -88,7 +88,10 @@ a:hover {
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
-
+.loading {
+  background: url('../images/ajax-loader.gif') no-repeat center center;
+  min-height: 50px;
+}
 #wrapper {
   margin: 0 10px;
 }
@@ -119,6 +122,9 @@ a:hover {
       .form_buttons input[type="submit"] {
         font-size: 1.4em;
       }
+#tag_ajax_form {
+  border-bottom: 1px dashed #9B9B9B;
+}
 
 h1, h2 {
   font-family: Constantia,"Lucida Bright",LucidaBright,"DejaVu Serif","Bitstream Vera Serif","Liberation Serif",Georgia,serif;
