@@ -51,7 +51,15 @@ end
 
 post '/post-comment' do
   if post = Post.find(params[:post_id])
-    comment = post.comments.new(:name=>params[:name], :email=>params[:email], :website=>params[:website],:comment=>params[:comment],:is_approved=>options.conf.auto_approve_comments)
+    comment = post.comments.new(
+      :name=>params[:name], 
+      :email=>params[:email], 
+      :website=>params[:website],
+      :comment=>params[:comment],
+      :is_approved=>options.conf.auto_approve_comments,
+      :user_agent=>env['HTTP_USER_AGENT'],
+      :ip_address=>env['REMOTE_ADDR']
+      )
     if comment.save
       redirect "/#{post.created_at.year}/#{post.created_at.month}/#{post.created_at.day}/#{post.slug}"
     else

@@ -3,7 +3,6 @@
   <% @post.comments.each do |comment| %>
     <%= partial :_comment, :locals=>{:comment=>comment} %>
   <% end %>
-  
 </div><!-- /comments -->
 
 <%= partial :_leave_comment, :locals=>{:post=>@post} %>
