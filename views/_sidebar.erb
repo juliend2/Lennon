@@ -9,6 +9,15 @@
     </ul>
   </div>
   
+  <h3>Archive</h3>
+  <div class="sidebar_block">
+    <ul>
+    <% @months.each do |month| %>
+      <li><%= link_to month[0].strftime('%B %Y'), "/archive/#{month[0].year}/#{month[0].month}" %></li>
+    <% end %>
+    </ul>
+  </div>
+  
   <h3>Tags</h3>
   <div class="sidebar_block">
     <ul>
@@ -18,12 +27,4 @@
     </ul>
   </div>
   
-  <h3>Archive</h3>
-  <div class="sidebar_block">
-    <ul>
-    <% @months.each do |month| %>
-      <li><%= link_to month[0].strftime('%B %Y'), "/archive/#{month[0].year}/#{month[0].month}" %></li>
-    <% end %>
-    </ul>
-  </div>
 </div>
