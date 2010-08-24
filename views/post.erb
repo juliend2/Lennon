@@ -1,8 +1,9 @@
 <%= partial :_post, :locals=>{:post=>@post} %>
+<% if @post.comments.length > 0 %>
 <div id="post_comments">
   <% @post.comments.each do |comment| %>
     <%= partial :_comment, :locals=>{:comment=>comment} %>
   <% end %>
 </div><!-- /comments -->
-
+<% end %>
 <%= partial :_leave_comment, :locals=>{:post=>@post} %>

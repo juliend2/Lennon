@@ -16,11 +16,25 @@ module Sinatra
         text.gsub(/<\/?[^>]*>/, "")
       end
       
+      def nb_comments(nb)
+        if nb == 1
+          "one comment"
+        elsif nb > 1
+          "#{nb} comments"
+        else
+          "No comment"
+        end
+      end
+      
+      def post_url(post)
+        "/#{post.published_at.year}/#{post.published_at.month}/#{post.published_at.day}/#{post.slug}"
+      end
+      
       def escape_single_quotes(str)
         str.gsub('\\','\0\0').gsub('</','<\/').gsub(/\r\n|\n|\r/, "\\n").gsub(/["']/) { |m| "\\#{m}" }
       end
       
-      def truncate_words(text, length = 100, end_string = ' &hellip;')
+      def truncate_words(text, length = 100, end_string = ' ...')
         words = text.split()
         words[0..(length-1)].join(' ') + (words.length > length ? end_string : '')
       end

@@ -1,4 +1,14 @@
 <div id="sidebar">
+  
+  <h3>Latest Comments</h3>
+  <div class="sidebar_block">
+    <ul>
+    <% @latest_comments.each do |comment| %>
+      <li><a href="<%= post_url(comment.post) %>"><%=h truncate_words(comment.comment, 10) %></a></li>
+    <% end %>
+    </ul>
+  </div>
+  
   <h3>Tags</h3>
   <div class="sidebar_block">
     <ul>

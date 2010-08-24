@@ -124,6 +124,8 @@ a:hover {
       }
 #tag_ajax_form {
   border-bottom: 1px dashed #9B9B9B;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 h1, h2 {

@@ -1,6 +1,6 @@
 <div class="post_preview">
   <h2>
-    <a href="/<%= post.published_at.year %>/<%= post.published_at.month %>/<%= post.published_at.day %>/<%= post.slug %>">
+    <a href="<%= post_url(post) %>">
       <%= post.title %>
     </a>
   </h2>
@@ -10,3 +10,4 @@
   <%= 'Tags: ' if post.tags.length > 0 %>
   <%= post.tags.map {|t| link_to t.name, "/tags/#{t.slug}" }.join(', ') %></p>
 </div>
+<p class="comments"><a href="<%= post_url(post) %>"><%= nb_comments(post.comments.length) %></a></p>

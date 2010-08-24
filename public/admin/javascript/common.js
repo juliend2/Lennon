@@ -21,6 +21,7 @@ var tags = {
       $.post(lennon.blog_url+"/admin/tags/add", {name: tag_name}, function(){
         $('#tags_list').removeClass('loading');
         self.get_tags(this._post_id);
+        $('#tag_ajax_form_name').val('');
       });
       return false;
     })

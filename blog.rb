@@ -16,6 +16,7 @@
 before do
   content_type "text/html", :charset => "utf-8"
   @tags = Tag.all
+  @latest_comments = Comment.all(:limit=>7, :order=>'created_at DESC')
   @months = Post.get_months
 end
 
