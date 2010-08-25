@@ -65,7 +65,7 @@ post '/post-comment' do
       redirect "/#{post.created_at.year}/#{post.created_at.month}/#{post.created_at.day}/#{post.slug}"
     else
       @messages = comment.errors.full_messages
-      erb :post_comment
+      erb :post_comment, :layout=>:layout_error
     end
   else
     'Could not find this post. Please try again.'

@@ -22,7 +22,7 @@ module Sinatra
         elsif nb > 1
           "#{nb} comments"
         else
-          "No comment"
+          "Leave a comment"
         end
       end
       

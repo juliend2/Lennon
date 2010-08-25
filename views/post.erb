@@ -1,4 +1,5 @@
 <%= partial :_post, :locals=>{:post=>@post} %>
+<a name="comments"></a>
 <% if @post.comments.length > 0 %>
 <div id="post_comments">
   <% @post.comments.each do |comment| %>

@@ -10,4 +10,3 @@
   <%= 'Tags: ' if post.tags.length > 0 %>
   <%= post.tags.map {|t| link_to t.name, "/tags/#{t.slug}" }.join(', ') %></p>
 </div>
-<p class="comments"><a href="<%= post_url(post) %>"><%= nb_comments(post.comments.length) %></a></p>
