@@ -4,7 +4,7 @@
   <div class="sidebar_block">
     <ul>
     <% @latest_comments.each do |comment| %>
-      <li><a href="<%= post_url(comment.post) %>"><%=h truncate_words(comment.comment, 10) %></a></li>
+      <li><%= comment.name %> on <a href="<%= post_url(comment.post) %>#comment_<%= comment.id %>"><%= comment.post.title %></a></li>
     <% end %>
     </ul>
   </div>
