@@ -1,0 +1,25 @@
+<form action="/admin/comments/<%= @comment.id %>" method="post" accept-charset="utf-8">
+  <% if @messages %>
+    <p class="error">Error:<br/> 
+    <%= @messages.join('<br/>') %></p>
+  <% end %>
+  <input type="hidden" name="_method" value="put" id="_method"/>
+  <p>
+    <label for="name">Name</label><br/>
+    <%= text_field 'name', @comment.name %>
+  </p>
+  <p>
+    <label for="email">Email</label><br/>
+    <%= text_field 'email', @comment.email %>
+  </p>
+  <p>
+    <label for="website">Website</label><br/>
+    <%= text_field 'website', @comment.website %>
+  </p>
+  <p>
+    <label for="comment">Comment</label><br/>
+    <%= text_area 'comment', @comment.comment %>
+  </p>
+  
+  <p><input type="submit" value="Update"/></p>
+</form>

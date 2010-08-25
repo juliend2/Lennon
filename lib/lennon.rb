@@ -349,6 +349,50 @@ module Sinatra
         redirect '/admin/tags'
       end
 
+      # Comment
+      
+      # Read
+      app.get '/admin/comments/?' do
+        authorize!
+        @comments = Comment.all.reverse
+        erb :"admin/admin_comments", :layout=>:"admin/layout_admin"
+      end
+            
+      # Update
+      app.get '/admin/comments/:id/edit' do 
+        authorize!
+        @comment = Comment.find(params[:id])
+        erb :"admin/admin_comments_edit", :layout=>:"admin/layout_admin"
+      end
+      
+      app.put '/admin/comments/:id' do
+        authorize!
+        comment = Comment.update( params[:id] , {
+          :name=>params[:name],
+          :website=>params[:website],
+          :email=>params[:email],
+          :is_approved=>params[:is_approved],
+          :comment=>params[:comment]
+        })
+        unless comment.save
+          comment.errors
+          @comment = Comment.find(params[:id])
+          @messages = comment.errors.full_messages
+          erb :"admin/admin_comments_edit", :layout=>:"admin/layout_admin"
+        else
+          redirect '/admin/comments'
+        end
+      end
+      
+      # Delete
+      app.delete '/admin/comments/:id' do
+        authorize!
+        @comment = Comment.find(params[:id])
+        @comment.destroy
+        redirect '/admin/comments'
+      end
+
+
       # Option
       
       # Read
