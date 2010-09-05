@@ -13,29 +13,41 @@ module Sinatra
         Conf.new
       end
       
+      def theme
+        conf.theme_name
+      end
+      
       # template helpers
       def get_sidebar
-        "themes/#{conf.theme_name}/_sidebar".to_sym
+        "themes/#{theme}/_sidebar".to_sym
       end
       
       def get_footer
-        "themes/#{conf.theme_name}/_footer".to_sym
+        "themes/#{theme}/_footer".to_sym
       end
       
       def get_header
-        "themes/#{conf.theme_name}/_header".to_sym
+        "themes/#{theme}/_header".to_sym
       end
       
       def get_post
-        "themes/#{conf.theme_name}/_post".to_sym
+        "themes/#{theme}/_post".to_sym
       end
       
       def get_comment
-        "themes/#{conf.theme_name}/_comment".to_sym
+        "themes/#{theme}/_comment".to_sym
       end
       
       def get_comment_form
-        "themes/#{conf.theme_name}/_comment_form".to_sym
+        "themes/#{theme}/_comment_form".to_sym
+      end
+      
+      def css_directory
+        "/themes/#{theme}/css"
+      end
+      
+      def js_directory
+        "/themes/#{theme}/js"
       end
       
       def nl_to_br(text)
