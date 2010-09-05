@@ -4,7 +4,6 @@
   <div class="sidebar_block">
     <ul>
     <% @latest_comments.each do |comment| %>
-      <% puts comment.inspect%>
       <li><%= comment.name %> on <a href="<%= post_url(comment.post) %>#comment_<%= comment.id %>"><%= comment.post.title %></a></li>
     <% end %>
     </ul>
