@@ -1,14 +1,17 @@
 <div id="sidebar">
-  
+  <% unless @latest_comments.empty? %>
   <h3>Latest Comments</h3>
   <div class="sidebar_block">
     <ul>
     <% @latest_comments.each do |comment| %>
+      <% puts comment.inspect%>
       <li><%= comment.name %> on <a href="<%= post_url(comment.post) %>#comment_<%= comment.id %>"><%= comment.post.title %></a></li>
     <% end %>
     </ul>
   </div>
+  <% end %>
   
+  <% unless @months.empty? %>
   <h3>Archive</h3>
   <div class="sidebar_block">
     <ul>
@@ -17,7 +20,9 @@
     <% end %>
     </ul>
   </div>
+  <% end %>
   
+  <% unless @tags.empty? %>
   <h3>Tags</h3>
   <div class="sidebar_block">
     <ul>
@@ -26,5 +31,6 @@
     <% end %>
     </ul>
   </div>
+  <% end %>
   
 </div>
