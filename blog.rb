@@ -12,6 +12,8 @@
   lib/string
 }.each { |r| require r }
 
+theme = 'default'
+
 # for every pages :
 before do
   content_type "text/html", :charset => "utf-8"
@@ -29,7 +31,7 @@ end
                       :offset=> offset,
                       :order=>'published_at DESC')
     @paginator = Paginator.new((@count / options.conf.posts_per_page.to_f).ceil, params[:page])
-    erb :posts
+    erb "themes/#{theme}/posts".to_sym, :layout=>:"themes/default/layout"
   end
 end
 
@@ -43,7 +45,7 @@ get %r{/(\d{4})\/(\d{1,2})\/(\d{1,2})\/([A-Za-z0-9\.\-]+)\/?} do |year, month, d
     })
   if @post.length > 0
     @post = @post[0]
-    erb :post
+    erb "themes/#{theme}/post".to_sym, :layout=>"themes/#{theme}/layout".to_sym
   else
     status 404
     "Not found"
@@ -65,7 +67,7 @@ post '/post-comment' do
       redirect "/#{post.created_at.year}/#{post.created_at.month}/#{post.created_at.day}/#{post.slug}"
     else
       @messages = comment.errors.full_messages
-      erb :post_comment, :layout=>:layout_error
+      erb "themes/#{theme}/post_comment".to_sym, :layout=>:layout_error
     end
   else
     'Could not find this post. Please try again.'
@@ -83,7 +85,7 @@ end
                       :offset=> offset,
                       :order=>'created_at DESC')
     @paginator = Paginator.new((@count / options.conf.posts_per_page.to_f).ceil, params[:page], "/tags/#{@tag.slug}")
-    erb :tags
+    erb "themes/#{theme}/tags".to_sym, :layout=>"themes/#{theme}/layout".to_sym
   end
 end
 
@@ -100,12 +102,12 @@ end
                       :order=>'published_at DESC',
                       :conditions=>{ :published_at=>beginning..ending })
     @paginator = Paginator.new((@count / options.conf.posts_per_page.to_f).ceil, params[:page], "/archive/#{params[:year]}/#{params[:month]}")
-    erb :archives
+    erb "themes/#{theme}/archives".to_sym, :layout=>"themes/#{theme}/layout".to_sym
   end
 end
 
 # RSS feed
 get '/rss.xml' do
   @posts = Post.all(:limit=>20)
-  builder :rss
+  builder "themes/#{theme}/rss".to_sym
 end
