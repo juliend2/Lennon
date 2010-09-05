@@ -27,7 +27,9 @@
   <div class="sidebar_block">
     <ul>
     <% @tags.each do |tag| %>
+      <% unless tag.posts.empty? %>
       <li><%= link_to tag.name, "/tags/#{tag.slug}" %></li>
+      <% end %>
     <% end %>
     </ul>
   </div>
