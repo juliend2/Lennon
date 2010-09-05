@@ -48,7 +48,7 @@ You'll need to install these gems :
 14. Now that the application is deployed, we need to log into the admin to add some posts and set things up. Your username is "admin" but to get your password, you'll need to take a look into your database. So: 
     * open production.sqlite3 with this command: +sqlite3 db/production.sqlite3+
     * Run this query to get your password: +select option_value from options where option_name='admin_pass';+
-14. Go to +http://[URL OF YOUR SITE]/admin+
+14. Go to \http://[URL OF YOUR SITE]/admin
 
 ==== On Heroku
 
