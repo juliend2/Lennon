@@ -21,9 +21,38 @@ You'll need to install these gems :
 6. Once the site is live, go to http://yoursite.com/admin and enter the admin username & password.
 7. Change the configurations (like your password) in the Options section of the admin.
 
-=== On Heroku
+==== On Dreamhost
 
-1. Issue a "heroku create <name of your heroku app>"
+1. In your control panel, go into Domains > Manage Domains > Add New Domain / Sub Domain
+2. Enter the domain in which you want to host your Lennon blog. And make sure you check the " Passenger (Ruby/Python apps only):" option in "Web Options". 
+3. Click "Fully host this domain". (Note that it might take a few seconds for the directory to be created in your user directory).
+4. Go into the directory that has been created. And delete the "public" directory that is inside it.
+5. Upload all the files in your lennon directory. At this point you should have your blog files (blog.rb, config, config.ru and so on) directly inside your domainname.com/ directory.
+6. Since the Sinatra gem is not installed on Dreamhost, you'll need to install it.
+   * First, create a 'vendor' directory in your blog directory (same level as config, db, lib and so on). ( mkdir vendor )
+   * go to vendor ( cd vendor )
+   * clone the Sinatra gem into your vendor directory ( git clone http://github.com/sinatra/sinatra.git )
+   * Add this line to your config.ru, right before "require 'blog'": require 'vendor/sinatra/lib/sinatra.rb'
+7. copy config/database.yml.tpl to config/database.yml ( cp config/database.yml.tpl config/database.yml ) and open it to change "development" for "production". DON'T forget to change "db/development.sqlite3" for "db/production.sqlite3" !!!
+8. In the Rakefile, change "db/development.sqlite3" for "db/production.sqlite3" and just before "require 'blog'" inside taks :seed, add these two lines: 
+   * require 'vendor/sinatra/lib/sinatra.rb'
+9. Issue a "rake db:migrate RACK_ENV=production"
+10. Issue a "rake db:seed RACK_ENV=production"
+11. Re-open config.ru and add these two lines directly after "require 'blog'" :
+    * set :run, false
+    * set :environment, :production
+12. Restart your app by:
+    * Creating a 'tmp' folder inside your app ( mkdir tmp )
+    * touch tmp/restart.txt
+13. Go to +http://[URL OF YOUR SITE]/+ and you should see "A Lennon Blog". See the next section if it's not working.
+14. Now that the application is deployed, we need to log into the admin to add some posts and set things up. Your username is "admin" but to get your password, you'll need to take a look into your database. So: 
+    * open production.sqlite3 with this command: +sqlite3 db/production.sqlite3+
+    * Run this query to get your password: +select option_value from options where option_name='admin_pass';+
+14. Go to +http://[URL OF YOUR SITE]/admin+
+
+==== On Heroku
+
+1. Issue a "heroku create [NAME OF YOUR HEROKU APP]"
 2. Copy database.yml.tpl to database.yml and modify the configurations if needed
 3. Issue a "rake db:migrate"
 4. Issue a "rake db:seed"
@@ -33,7 +62,7 @@ You'll need to install these gems :
 8. Remove the line "config/database.yml" in the .gitignore file.
 9. Commit your changes
 10. Issue a "git push heroku master"
-11. Once the site is live, go to http://<name of your heroku app>.heroku.com/admin and enter the admin username & password.
+11. Once the site is live, go to +http://[NAME OF YOUR HEROKU APP].heroku.com/admin+ and enter the admin username & password.
 12. Change the configurations (like your password) in the Options section of the admin.
 
 == Play with it!
