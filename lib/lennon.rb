@@ -8,6 +8,36 @@ module Sinatra
       include Rack::Utils
       alias_method :h, :escape_html
       
+      # HACK! Wraps a conf object to be accessible from the other helpers
+      def conf
+        Conf.new
+      end
+      
+      # template helpers
+      def get_sidebar
+        "themes/#{conf.theme_name}/_sidebar".to_sym
+      end
+      
+      def get_footer
+        "themes/#{conf.theme_name}/_footer".to_sym
+      end
+      
+      def get_header
+        "themes/#{conf.theme_name}/_header".to_sym
+      end
+      
+      def get_post
+        "themes/#{conf.theme_name}/_post".to_sym
+      end
+      
+      def get_comment
+        "themes/#{conf.theme_name}/_comment".to_sym
+      end
+      
+      def get_comment_form
+        "themes/#{conf.theme_name}/_comment_form".to_sym
+      end
+      
       def nl_to_br(text)
         text.gsub(/\n/, '<br>')
       end

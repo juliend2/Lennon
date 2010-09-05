@@ -16,4 +16,5 @@ Option.create([
   {:option_name=>'date_format', :option_value=>'%b %d, %Y', :option_type=>'string'},
   {:option_name=>'posts_per_page', :option_value=>4, :option_type=>'integer'},
   {:option_name=>'auto_approve_comments', :option_value=>true, :option_type=>'boolean'},
+  {:option_name=>'theme_name', :option_value=>'default', :option_type=>'string'},
 ])

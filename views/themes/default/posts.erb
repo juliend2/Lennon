@@ -1,7 +1,7 @@
 <div id="posts">
 <% if @posts %>
   <% @posts.each do |post| %>
-    <%= partial "themes/default/_post".to_sym, :locals=>{:post=>post} %>
+    <%= partial get_post, :locals=>{:post=>post} %>
     <p class="comments"><a href="<%= post_url(post) %>#comments"><%= nb_comments(post.comments.length) %></a></p>
   <% end %>
 <% end %>

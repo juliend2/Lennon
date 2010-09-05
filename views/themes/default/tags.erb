@@ -1,7 +1,7 @@
 <div id="posts">
 <% if @posts %>
   <% @posts.each do |post| %>
-    <%= partial :_post, :locals=>{:post=>post} %>
+    <%= partial get_post, :locals=>{:post=>post} %>
   <% end %>
 <% end %>
 </div>

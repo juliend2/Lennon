@@ -11,15 +11,15 @@
 <body>
   <div id="wrapper">
   
-  <%= partial :_header %>
+  <%= partial get_header %>
     
     <div id="content">
     <%= yield %> 
     </div><!-- /content -->
     
-  <%= partial :_sidebar, :locals=>{:tags=>@tags, :months=>@months} %>
+  <%= partial get_sidebar, :locals=>{:tags=>@tags, :months=>@months} %>
   
-  <%= partial :_footer %>
+  <%= partial get_footer %>
   
   </div><!-- /wrapper -->
 </body>

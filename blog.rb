@@ -31,7 +31,7 @@ end
                       :offset=> offset,
                       :order=>'published_at DESC')
     @paginator = Paginator.new((@count / options.conf.posts_per_page.to_f).ceil, params[:page])
-    erb "themes/#{theme}/posts".to_sym, :layout=>:"themes/default/layout"
+    erb "themes/#{theme}/posts".to_sym, :layout=>"themes/#{theme}/layout".to_sym
   end
 end
 
@@ -45,7 +45,7 @@ get %r{/(\d{4})\/(\d{1,2})\/(\d{1,2})\/([A-Za-z0-9\.\-]+)\/?} do |year, month, d
     })
   if @post.length > 0
     @post = @post[0]
-    erb "themes/#{theme}/post".to_sym, :layout=>"themes/#{theme}/layout".to_sym
+    erb "themes/#{theme}/single".to_sym, :layout=>"themes/#{theme}/layout".to_sym
   else
     status 404
     "Not found"
