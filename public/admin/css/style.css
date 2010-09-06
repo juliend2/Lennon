@@ -174,6 +174,15 @@ table {
     td.actions form, td.actions button {
       display: inline;
     }
-#admin_menu {
-  margin-bottom: 20px;
+#admin_nav { 
+  float: left;
+  clear: both;
+  width: 100%;
 }
+  #admin_menu {
+    margin-bottom: 20px;
+    float: left;
+  }
+  #logout_btn {
+    float: right;
+  }

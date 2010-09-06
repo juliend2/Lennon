@@ -36,12 +36,17 @@
   <div id="wrapper">
   <h1>Blog Administration</h1>
   <% if authorized? %>
+  <div id="admin_nav">
   <p id="admin_menu">
     <a class="button radius5" href="/admin/posts">Manage Posts</a> 
     <a class="button radius5" href="/admin/comments">Manage Comments</a> 
     <a class="button radius5" href="/admin/tags">Manage Tags</a>
     <a class="button radius5" href="/admin/options">Options</a>
   </p>
+  <p id="logout_btn">
+    <a href="/admin/logout">Logout</a>
+  </p>
+  </div>
   <% end %>
   <%= yield %>
   </div>

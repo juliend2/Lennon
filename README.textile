@@ -20,11 +20,8 @@ Have some fun. Look at the code. Let me know if there's something missing or bro
 h2. Author
 
 Julien Desrosiers.
-http://juliendesrosiers.com
+"juliendesrosiers.com":http://juliendesrosiers.com
 
 h2. TODO 
 
-* Ease the installation process.
-* Add a logout link in the admin.
-* Display a message when there is no Post yet. Instead of an empty table.
 * Make a nice section in the Admin for choosing a Theme.

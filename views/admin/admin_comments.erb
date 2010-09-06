@@ -8,14 +8,14 @@
     <th>Post</th>
     <th class="actions">Actions</th>
   </tr>
-<% if @comments %>
+<% unless @comments.empty? %>
   <% @comments.each do |comment| %>
   <tr>
     <td><%= comment.name %></td>
     <td><%= comment.email %></td>
     <td><%= comment.website %></td>
     <td><%= truncate_words(comment.comment, 50) %></td>
-    <td><%= comment.post.title %></td>
+    <td><%= comment.post.title if comment.post %></td>
     <td class="actions">
       <%= link_to 'Edit', "/admin/comments/#{comment.id}/edit"%>
       <%= delete_btn('Delete', "/admin/comments/#{comment.id}") %>
