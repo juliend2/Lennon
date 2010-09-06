@@ -1,0 +1,79 @@
+h1. Lennon
+
+Lennon is a lightweight blogging engine built with Sinatra. It uses CKEditor's WYSIWYG to ease edition of the content. It uses ActiveRecord for interacting with the database. Comments are also stored in the database. For now it is only tested with Sqlite3 but since it uses ActiveRecord it should work with other DBs out of the box. 
+
+h2. Dependencies
+
+You'll need to install these gems :
+
+  sudo gem install sinatra
+  sudo gem install active_record
+
+h2. Installation
+
+h3. On your own server
+
+(This is the prefered way for deploying a Lennon blog.)
+
+# You'll first need to copy database.yml.tpl to database.yml and modify the configurations. (replace every occurrence of "development" with "production")
+# Issue a @rake db:migrate RACK_ENV=production@
+# Issue a @rake db:seed RACK_ENV=production@ and you should see "You've Successfully Loaded your blog's initial data." along with your Admin Username and Password.
+# Deploy the app as any other Sinatra-based app. (See: http://sinatra-book.gittr.com/#deployment )
+# Go to @http://<ADDRESS OF YOUR SITE>/admin@ and login with your infos that you got when you previously ran @rake db:seed RACK_ENV=production@. Run it again if you don't remember, it will not override the informations but only show the same result again. By the way, you can safely delete seeds.rb at this point.
+# Change the configurations (like your password) in the Options section of the admin.
+
+h3. On Dreamhost
+
+# In your control panel, go into Domains > Manage Domains > Add New Domain / Sub Domain
+# Enter the domain in which you want to host your Lennon blog. And make sure you check the " Passenger (Ruby/Python apps only):" option in "Web Options". 
+# Click "Fully host this domain". (Note that it might take a few seconds for the directory to be created in your user directory).
+# Go into the directory that has been created. And delete the "public" directory that is inside it.
+# Upload all the files in your lennon directory. At this point you should have your blog files (blog.rb, config, config.ru and so on) directly inside your domainname.com/ directory.
+# Since the Sinatra gem is not installed on Dreamhost, you'll need to install it.
+## First, create a 'vendor' directory in your blog directory (same level as config, db, lib and so on). ( @mkdir vendor@ )
+## go to vendor ( @cd vendor@ )
+## clone the Sinatra gem into your vendor directory ( @git clone http://github.com/sinatra/sinatra.git@ )
+## Add this line to your config.ru, right before "require 'blog'": @require 'vendor/sinatra/lib/sinatra.rb'@
+# copy config/database.yml.tpl to config/database.yml ( cp config/database.yml.tpl config/database.yml ) and open it to change "development" for "production". DON'T forget to change "db/development.sqlite3" for "db/production.sqlite3" !!!
+# In the Rakefile, change "db/development.sqlite3" for "db/production.sqlite3" and just before "require 'blog'" inside taks :seed, add these two lines: 
+## require 'vendor/sinatra/lib/sinatra.rb'
+# Issue a @rake db:migrate RACK_ENV=production@
+# Issue a @rake db:seed RACK_ENV=production@ and you should see "You've Successfully Loaded your blog's initial data." along with your Admin Username and Password.
+# Re-open config.ru and add these two lines directly after "require 'blog'" :
+## @set :run, false@
+## @set :environment, :production@
+# Restart your app by:
+## Creating a 'tmp' folder inside your app ( @mkdir tmp@ )
+## Issue a @touch tmp/restart.txt@
+# Go to @http://<ADDRESS OF YOUR SITE>@ and you should see "A Lennon Blog". See the next section if it's not working.
+# Go to @http://<ADDRESS OF YOUR SITE>/admin@ and login with your infos that you got when you previously ran @rake db:seed RACK_ENV=production@. Run it again if you don't remember, it will not override the informations but only show the same result again. By the way, you can safely delete seeds.rb at this point.
+# Change the configurations (like your password) in the Options section of the admin.
+
+h3. On Heroku
+
+Please note that Heroku apps are not allowed to write on the file system so uploading images via CKeditor will not work.
+
+# Issue a @heroku create [NAME OF YOUR HEROKU APP]@
+# Copy database.yml.tpl to database.yml and modify the configurations if needed
+# Issue a @rake db:migrate@
+# Issue a @rake db:seed@ and you should see "You've Successfully Loaded your blog's initial data." along with your Admin Username and Password.
+# Issue a @heroku db:push@
+# Create a file called .gems and write the gems that you will need, separated by a new line. (Note: Last time I tried, I needed to write activerecord without the underscore for it to work on Heroku).
+# Remove the line @config/database.yml@ in the .gitignore file.
+# Commit your changes
+# Issue a @git push heroku master@
+# Once the site is live, go to @http://[NAME OF YOUR HEROKU APP].heroku.com/admin@ and login with your infos that you got when you previously ran @rake db:seed@. Run it again if you don't remember, it will not override the informations but only show the same result again. By the way, you can safely delete seeds.rb at this point.
+# Change the configurations (like your password) in the Options section of the admin.
+
+h2. Play with it!
+
+Have some fun. Look at the code. Let me know if there's something missing or broken.
+
+h2. Author
+
+Julien Desrosiers.
+http://juliendesrosiers.com
+
+h2. TODO 
+
+* Ease the installation process.

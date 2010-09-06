@@ -16,6 +16,12 @@ namespace :db do
     require 'blog'
     seed_file = File.join('.', 'db', 'seeds.rb')
     load(seed_file) if File.exist?(seed_file)
+    puts '===================================================='
+    puts "You've Successfully Loaded your blog's initial data."
+    puts '----------------------------------------------------'
+    puts "Your Admin username is: admin"
+    puts "Your Admin password is: #{Option.find_by_option_name('admin_pass')['option_value']}"
+    puts '===================================================='
   end
   
 end
