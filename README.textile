@@ -6,8 +6,10 @@ h2. Dependencies
 
 You'll need to install these gems :
 
+@  
   sudo gem install sinatra
   sudo gem install active_record
+@
 
 h2. Installation
 
