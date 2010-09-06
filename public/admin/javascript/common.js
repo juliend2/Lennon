@@ -1,7 +1,7 @@
 var tags = {
   _post_id: 0,
   init : function(post_id){
-    this._post_id = post_id;
+    this._post_id = post_id || 0;
     this.get_tags();
     // add a tag
     this.add_tag();

@@ -11,11 +11,22 @@ sudo gem install active_record
 
 h2. Installation
 
+h3. On your local machine (for development)
+
+These instructions are for Mac or Linux (not tested on Linux but should work)
+
+# First, install shotgun (so you don't need to restart your rack each time you make a change) : @sudo gem install shotgun@
+# Copy config/database.yml.tpl to config/database.yml
+# Issue a @rake db:migrate@
+# Issue a @rake db:seed@ and you should see "You've Successfully Loaded your blog's initial data." along with your Admin Username and Password.
+# Issue a @shotgun config.ru@ to start the development server
+# Login to @http://localhost:9393/admin@ and start entering some fake content for development purpose!
+
 h3. On your own server
 
 (This is the prefered way for deploying a Lennon blog.)
 
-# You'll first need to copy database.yml.tpl to database.yml and modify the configurations. (replace every occurrence of "development" with "production")
+# You'll first need to copy config/database.yml.tpl to config/database.yml and modify the configurations. (replace every occurrence of "development" with "production")
 # Issue a @rake db:migrate RACK_ENV=production@
 # Issue a @rake db:seed RACK_ENV=production@ and you should see "You've Successfully Loaded your blog's initial data." along with your Admin Username and Password.
 # Deploy the app as any other Sinatra-based app. (See: http://sinatra-book.gittr.com/#deployment )
@@ -77,3 +88,6 @@ http://juliendesrosiers.com
 h2. TODO 
 
 * Ease the installation process.
+* Add a logout link in the admin.
+* Display a message when there is no Post yet. Instead of an empty table.
+* Make a nice section in the Admin for choosing a Theme.

@@ -350,7 +350,11 @@ module Sinatra
       app.get '/admin/tags/:post_id/ajax/?' do
         authorize!
         @tags = Tag.all.reverse
-        @post = Post.find(params[:post_id])
+        if params[:post_id]!= '0'
+          @post = Post.find(params[:post_id])
+        else
+          @post = []
+        end
         erb :"admin/admin_tags_ajax", :layout=>false
       end
       

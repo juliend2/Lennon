@@ -6,6 +6,6 @@
 <ul id="tags_list" class="loading"><!-- load content via ajax --></ul>
 <script type="text/javascript" charset="utf-8">
   $(function(){
-    tags.init(<%= @post.id %>);
+    tags.init(<%= @post ? @post.id : '' %>);
   });
 </script>
