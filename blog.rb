@@ -18,10 +18,16 @@ before do
   @tags = Tag.all
   @latest_comments = Comment.all(:limit=>7, :order=>'created_at DESC', :conditions=>"post_id IS NOT NULL")
   @months = Post.get_months
+  
+end
+
+begin
+  conf = Conf.new
+rescue ConfigurationNotFoundError => e
 end
 
 # for / and for and /page/1, /page/2, etc
-['/', '/page/:page'].each do |path|
+["#{conf.blog_url_prefix}/?", "#{conf.blog_url_prefix}/page/:page"].each do |path|
   get path do 
     @count = Post.count
     offset = ((params[:page]||0).to_i-1)*options.conf.posts_per_page
@@ -29,13 +35,13 @@ end
                       :offset=> offset,
                       :order=>'published_at DESC')
     @paginator = Paginator.new((@count / options.conf.posts_per_page.to_f).ceil, params[:page])
-    erb "themes/#{options.conf.theme_name}/posts".to_sym, :layout=>"themes/#{options.conf.theme_name}/layout".to_sym
+    erb "themes/#{conf.theme_name}/posts".to_sym, :layout=>"themes/#{conf.theme_name}/layout".to_sym
   end
 end
 
 # Display a single post
 # for /:year/:month/:day/:slug
-get %r{/(\d{4})\/(\d{1,2})\/(\d{1,2})\/([A-Za-z0-9\.\-]+)\/?} do |year, month, day, slug|
+get %r{#{conf.blog_url_prefix}/(\d{4})\/(\d{1,2})\/(\d{1,2})\/([A-Za-z0-9\.\-]+)\/?} do |year, month, day, slug|
   time = Time.gm(year,month,day).midnight
   @post = Post.all(:conditions=>{
       :published_at=>time.to_time..(time + 1.day).to_time, 
@@ -43,14 +49,14 @@ get %r{/(\d{4})\/(\d{1,2})\/(\d{1,2})\/([A-Za-z0-9\.\-]+)\/?} do |year, month, d
     })
   if @post.length > 0
     @post = @post[0]
-    erb "themes/#{options.conf.theme_name}/single".to_sym, :layout=>"themes/#{options.conf.theme_name}/layout".to_sym
+    erb "themes/#{conf.theme_name}/single".to_sym, :layout=>"themes/#{conf.theme_name}/layout".to_sym
   else
     status 404
     "Not found"
   end
 end
 
-post '/post-comment' do
+post "#{conf.blog_url_prefix}/post-comment" do
   if post = Post.find(params[:post_id])
     comment = post.comments.new(
       :name=>params[:name], 
@@ -62,10 +68,10 @@ post '/post-comment' do
       :ip_address=>env['REMOTE_ADDR']
       )
     if comment.save
-      redirect "/#{post.created_at.year}/#{post.created_at.month}/#{post.created_at.day}/#{post.slug}"
+      redirect "#{conf.blog_url_prefix}/#{post.created_at.year}/#{post.created_at.month}/#{post.created_at.day}/#{post.slug}"
     else
       @messages = comment.errors.full_messages
-      erb "themes/#{options.conf.theme_name}/post_comment".to_sym, :layout=>"themes/#{options.conf.theme_name}/layout_error".to_sym
+      erb "themes/#{conf.theme_name}/post_comment".to_sym, :layout=>"themes/#{conf.theme_name}/layout_error".to_sym
     end
   else
     'Could not find this post. Please try again.'
@@ -74,7 +80,8 @@ end
 
 # Tag actions
 # /tags/my-tag and /tags/my-tag/page/2
-['/tags/:tag_slug/?', '/tags/:tag_slug/page/:page/?'].each do |path|
+["#{conf.blog_url_prefix}/tags/:tag_slug/?", 
+"#{conf.blog_url_prefix}/tags/:tag_slug/page/:page/?"].each do |path|
   get path do
     @tag = Tag.find_by_slug(params[:tag_slug])
     @count = @tag.posts.count
@@ -83,13 +90,14 @@ end
                       :offset=> offset,
                       :order=>'created_at DESC')
     @paginator = Paginator.new((@count / options.conf.posts_per_page.to_f).ceil, params[:page], "/tags/#{@tag.slug}")
-    erb "themes/#{options.conf.theme_name}/tags".to_sym, :layout=>"themes/#{options.conf.theme_name}/layout".to_sym
+    erb "themes/#{conf.theme_name}/tags".to_sym, :layout=>"themes/#{conf.theme_name}/layout".to_sym
   end
 end
 
 # Archive actions
 # /tags/my-tag and /tags/my-tag/page/2
-['/archive/:year/:month/?', '/archive/:year/:month/page/:page/?'].each do |path|
+["#{conf.blog_url_prefix}/archive/:year/:month/?", 
+"#{conf.blog_url_prefix}/archive/:year/:month/page/:page/?"].each do |path|
   get path do
     beginning = Time.gm(params[:year],params[:month]).beginning_of_month
     ending = Time.gm(params[:year],params[:month]).end_of_month
@@ -100,12 +108,12 @@ end
                       :order=>'published_at DESC',
                       :conditions=>{ :published_at=>beginning..ending })
     @paginator = Paginator.new((@count / options.conf.posts_per_page.to_f).ceil, params[:page], "/archive/#{params[:year]}/#{params[:month]}")
-    erb "themes/#{options.conf.theme_name}/archives".to_sym, :layout=>"themes/#{options.conf.theme_name}/layout".to_sym
+    erb "themes/#{conf.theme_name}/archives".to_sym, :layout=>"themes/#{conf.theme_name}/layout".to_sym
   end
 end
 
 # RSS feed
-get '/rss.xml' do
+get "#{conf.blog_url_prefix}/rss.xml" do
   @posts = Post.all(:limit=>20)
-  builder "themes/#{options.conf.theme_name}/rss".to_sym
+  builder "themes/#{conf.theme_name}/rss".to_sym
 end

@@ -10,6 +10,7 @@ Option.create([
   {:option_name=>'blog_title', :option_value=>'A Lennon Blog', :option_type=>'string'},
   {:option_name=>'blog_tagline', :option_value=>'Another awesome, Lennon powered, blog.', :option_type=>'string'},
   {:option_name=>'blog_url', :option_value=>'http://localhost:9393', :option_type=>'string'},
+  {:option_name=>'blog_url_prefix', :option_value=>'', :option_type=>'string'},
   {:option_name=>'public_directory', :option_value=>'public', :option_type=>'string'},
   {:option_name=>'admin_user', :option_value=>'admin', :option_type=>'string'},
   {:option_name=>'admin_pass', :option_value=>(rand(2**256).to_s(36)[0..15]), :option_type=>'string'},

@@ -69,7 +69,7 @@ module Sinatra
       end
       
       def post_url(post)
-        "/#{post.published_at.year}/#{post.published_at.month}/#{post.published_at.day}/#{post.slug}"
+        "#{conf.blog_url_prefix}/#{post.published_at.year}/#{post.published_at.month}/#{post.published_at.day}/#{post.slug}"
       end
       
       def escape_single_quotes(str)
@@ -199,7 +199,7 @@ module Sinatra
       
       app.get '/admin/logout/?' do
         logout!
-        redirect '/'
+        redirect "#{app.conf.blog_url_prefix}/"
       end
       
       app.post '/admin/upload' do

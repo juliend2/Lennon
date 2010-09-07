@@ -4,7 +4,7 @@ class Paginator
   def initialize(max_pages, current, url_prefix='')
     @max_pages = max_pages
     @current = (current || 1).to_i
-    @url_prefix = url_prefix
+    @url_prefix = conf.blog_url_prefix+url_prefix
   end
 
   def pages

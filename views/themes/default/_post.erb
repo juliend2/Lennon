@@ -8,5 +8,5 @@
 <p class="date"><%= post.published_at.strftime(options.conf.date_format) %></p>
 <p class="tags">
   <%= 'Tags: ' if post.tags.length > 0 %>
-  <%= post.tags.map {|t| link_to t.name, "/tags/#{t.slug}" }.join(', ') %></p>
+  <%= post.tags.map {|t| link_to t.name, "#{options.conf.blog_url_prefix}/tags/#{t.slug}" }.join(', ') %></p>
 </div>

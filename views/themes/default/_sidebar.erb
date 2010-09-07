@@ -15,7 +15,7 @@
   <div class="sidebar_block">
     <ul>
     <% @months.each do |month| %>
-      <li><%= link_to month[0].strftime('%B %Y'), "/archive/#{month[0].year}/#{month[0].month}" %></li>
+      <li><%= link_to month[0].strftime('%B %Y'), "#{options.conf.blog_url_prefix}/archive/#{month[0].year}/#{month[0].month}" %></li>
     <% end %>
     </ul>
   </div>
@@ -27,7 +27,7 @@
     <ul>
     <% @tags.each do |tag| %>
       <% unless tag.posts.empty? %>
-      <li><%= link_to tag.name, "/tags/#{tag.slug}" %></li>
+      <li><%= link_to tag.name, "#{options.conf.blog_url_prefix}/tags/#{tag.slug}" %></li>
       <% end %>
     <% end %>
     </ul>

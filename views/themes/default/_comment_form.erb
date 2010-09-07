@@ -1,6 +1,6 @@
 <div id="leave_comment">
 <h4>Leave a comment</h4>
-<form method="post" action="/post-comment">
+<form method="post" action="<%= options.conf.blog_url_prefix %>/post-comment">
   <input type="hidden" name="post_id" value="<%= @post.id %>" id="post_id"/>
   <p>
     <label for="name">Your Name *</label><br/>
