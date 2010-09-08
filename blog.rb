@@ -68,7 +68,7 @@ post "#{conf.blog_url_prefix}/post-comment" do
       :ip_address=>env['REMOTE_ADDR']
       )
     if comment.save
-      redirect "#{conf.blog_url_prefix}/#{post.created_at.year}/#{post.created_at.month}/#{post.created_at.day}/#{post.slug}"
+      redirect "#{conf.blog_url_prefix}/#{post.published_at.year}/#{post.published_at.month}/#{post.published_at.day}/#{post.slug}"
     else
       @messages = comment.errors.full_messages
       erb "themes/#{conf.theme_name}/post_comment".to_sym, :layout=>"themes/#{conf.theme_name}/layout_error".to_sym
