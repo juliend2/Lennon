@@ -11,7 +11,7 @@ class Paginator
     links = []
     1.upto @max_pages do |i|
       if i == @current
-        links << i
+        links << "<span class='paginator_current_page'>#{i}</span>"
       else
         links << link_to( i, "#{@url_prefix}/page/#{i}")
       end
