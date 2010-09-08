@@ -114,6 +114,6 @@ end
 
 # RSS feed
 get "#{conf.blog_url_prefix}/rss.xml" do
-  @posts = Post.all(:limit=>20)
+  @posts = Post.all(:limit=>20,:order=>'published_at DESC')
   builder "themes/#{conf.theme_name}/rss".to_sym
 end
