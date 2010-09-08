@@ -8,7 +8,7 @@ module Sinatra
       include Rack::Utils
       alias_method :h, :escape_html
       
-      # HACK! Wraps a conf object to be accessible from the other helpers
+      # Wraps a conf object to be accessible from the other helpers
       def conf
         Conf.new
       end
@@ -110,6 +110,21 @@ module Sinatra
       def checkbox(name, value, is_checked=false, attrs={})
         checked = "checked='checked'" if is_checked
         "<input type='checkbox' name='#{name}' value='#{value}' id='#{name}_checkbox_#{value}' #{checked} #{attributize(attrs)} />"
+      end
+      
+      # Select field
+      # Example: select 'date', :default=>1, :html=>{:id=>'pub_date_month'} :kv=>[[:key,1],[...]]
+      def select(name, args)
+        attrs = (args.has_key?(:html) ? args[:html] : {})
+        key_val = (args.has_key?(:kv) ? args[:kv] : [])
+        default = (args.has_key?(:default) ? args[:default] : nil)
+        str = "<select name='#{name}' id='#{name}_field' #{attributize(attrs)}>"
+        key_val.each do |k,v|
+          str += "<option value='#{v}'#{" selected='selected'" if v == default}>"
+          str += "#{k}</option>"
+        end
+        str += "</select>"
+        str
       end
       
       def link_to(label, path, attrs={})
@@ -270,7 +285,7 @@ module Sinatra
       # Read
       app.get '/admin/posts/?' do
         authorize!
-        @posts = Post.all.reverse
+        @posts = Post.all(:order=>'published_at DESC')
         erb :"admin/admin_posts", :layout=>:"admin/layout_admin"
       end
       
@@ -293,7 +308,8 @@ module Sinatra
         post = Post.update( params[:id] , {
           :title=>params[:title],
           :slug=>params[:slug],
-          :content=>params[:content]
+          :content=>params[:content],
+          :published_at=>params[:published_at]
         })
         if params[:post]
           tag_ids = params[:post][:tags]

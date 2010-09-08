@@ -27,3 +27,10 @@ var tags = {
     })
   }
 };
+
+var post_date = {
+  _post_id : 0,
+  init: function(post_id) {
+    this._post_id = post_id || 0;
+  }
+};

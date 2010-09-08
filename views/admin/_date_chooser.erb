@@ -1,0 +1,21 @@
+<h2>Date</h2>
+<div id="pub_date_ajax_form">
+  <p>
+    <% pub_date = @post.published_at || Time.now %>
+    <%= select('pub_date_month', {:default=>pub_date.month, :kv=>[[:Jan,1],[:Feb,2],[:Mar,3],[:Apr,4],[:May,5],[:Jun,6],[:Jul,7],[:Aug,8],[:Sep,9],[:Oct,10],[:Nov,11],[:Dec,12]]}) %>
+    <%= text_field 'pub_date_day',pub_date.day,:maxlength=>2 %>,
+    <%= text_field 'pub_date_year',pub_date.year,:maxlength=>4 %> @ 
+    <%= text_field 'pub_date_hours',pub_date.hour,:maxlength=>2 %>:<%= text_field 'pub_date_minutes',pub_date.min,:maxlength=>2 %>
+  </p>
+  <input type="hidden" name="published_at" value="" id="published_at"/>
+</div>
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    var changeDate = function(){
+      var new_value = new Date($('#pub_date_year_field').val(), parseInt($('#pub_date_month_field').val())-1, $('#pub_date_day_field').val(), $('#pub_date_hours_field').val(), $('#pub_date_minutes_field').val(), 0,0);
+      $('#published_at').val(new_value.toString());
+    };
+    changeDate();
+    $('#pub_date_ajax_form>p :input').change(changeDate);
+  })
+</script>

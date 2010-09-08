@@ -127,7 +127,27 @@ a:hover {
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
-
+  #tag_ajax_form input[type='text'] {
+    width: 100px;
+    border: 1px solid #999;
+    padding: 3px 1px;
+    font-size: 12px;
+  }
+#pub_date_ajax_form {}
+  #pub_date_ajax_form input[type='text'],
+  #pub_date_ajax_form select {
+    width: 20px;
+    border: 1px solid #999;
+    padding: 3px 1px;
+    font-size: 12px;
+  }
+  #pub_date_ajax_form select {
+    width: 50px;
+/*    height: 25px;*/
+  }
+  #pub_date_ajax_form #pub_date_year_field {
+    width: 70px;
+  }
 h1, h2 {
   font-family: Constantia,"Lucida Bright",LucidaBright,"DejaVu Serif","Bitstream Vera Serif","Liberation Serif",Georgia,serif;
 }

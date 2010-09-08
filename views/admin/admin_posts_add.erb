@@ -21,6 +21,9 @@
   <div class="admin_box tags">
     <%= partial :"admin/_tags_chooser", :locals=>{:post=>@post, :tags=>@tags} %>
   </div>
+  <div class="admin_box">
+    <%= partial :"admin/_date_chooser", :locals=>{:post=>@post}%>
+  </div>
   </div>
   
 </form>
