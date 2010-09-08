@@ -1,6 +1,6 @@
 <% @tags.each do |tag| %>
   <li>
   <label for="post[tags][]_checkbox_<%= tag.id %>"><%= tag.name %></label>
-  <%= checkbox 'post[tags][]', tag.id, @post.tags.include?(tag) %>
+  <%= checkbox 'post[tags][]', tag.id, (@post.methods.include?('tags') ? @post.tags.include?(tag) : false) %>
   </li>
 <% end %>
