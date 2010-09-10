@@ -18,4 +18,7 @@ Option.create([
   {:option_name=>'posts_per_page', :option_value=>10, :option_type=>'integer'},
   {:option_name=>'auto_approve_comments', :option_value=>true, :option_type=>'boolean'},
   {:option_name=>'theme_name', :option_value=>'default', :option_type=>'string'},
+  {:option_name=>'recaptcha_public_key', :option_value=>'', :option_type=>'string'},
+  {:option_name=>'recaptcha_private_key', :option_value=>'', :option_type=>'string'},
+  {:option_name=>'recaptcha_is_active', :option_value=>false, :option_type=>'boolean'},
 ])

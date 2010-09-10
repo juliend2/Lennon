@@ -1,6 +1,7 @@
 %w{
   rubygems
   sinatra
+  lib/recaptcha
   active_record
   lib/conf
   lib/lennon
@@ -18,12 +19,20 @@ before do
   @tags = Tag.all
   @latest_comments = Comment.all(:limit=>7, :order=>'created_at DESC', :conditions=>"post_id IS NOT NULL")
   @months = Post.get_months
-  
 end
 
 begin
   conf = Conf.new
 rescue ConfigurationNotFoundError => e
+end
+
+configure do
+   # https://admin.recaptcha.net/accounts/signup/
+   if conf.recaptcha_is_active
+     Sinatra::ReCaptcha.public_key  = conf.recaptcha_public_key
+     Sinatra::ReCaptcha.private_key = conf.recaptcha_private_key
+   end
+   # to use ssl set Sinatra::ReCaptcha.server = 'https://api-secure.recaptcha.net'
 end
 
 # for / and for and /page/1, /page/2, etc
@@ -58,6 +67,11 @@ end
 
 post "#{conf.blog_url_prefix}/post-comment" do
   if post = Post.find(params[:post_id])
+    
+    if conf.recaptcha_is_active
+      halt(401, "invalid captcha") unless recaptcha_correct?
+    end
+    
     comment = post.comments.new(
       :name=>params[:name], 
       :email=>params[:email], 
