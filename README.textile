@@ -22,6 +22,6 @@ h2. Author
 Julien Desrosiers.
 "juliendesrosiers.com":http://juliendesrosiers.com
 
-h2. TODO 
+h2. Thanks
 
-* Make a nice section in the Admin for choosing a Theme.
+to "James Pozdena":http://github.com/jpoz for the "sinatra-recaptcha":http://github.com/jpoz/sinatra-recaptcha which is used (and already included) in Lennon for preventing spammy comments. And thanks to "Blake Mizerany":http://github.com/bmizerany for creating the awesome "Sinatra":http://github.com/sinatra/sinatra framework.
